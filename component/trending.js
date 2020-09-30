@@ -14,7 +14,7 @@ class Trending extends Component {
         return <View style={{height: 10, backgroundColor: '#fff'}} />;
     }
 
-    playSong= item => {
+    playSong = item => {
         this.props.navigation.navigate('Player', {item: item});
     }
 

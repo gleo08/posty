@@ -27,13 +27,11 @@ class Suggestion extends Component {
                 <Surface style={styles.surface}>
                   <ImageBackground
                     source={item.img}
-                    style={styles.img}
-                  >
-                    <Text style={styles.name}>
-                      {item.title} - {item.description}
-                    </Text>
-                  </ImageBackground>
+                    style={styles.img}></ImageBackground>
                 </Surface>
+                <Text style={styles.name}>
+                  {item.title} - {item.description}
+                </Text>
               </TouchableOpacity>
             );
           }}
@@ -44,7 +42,7 @@ class Suggestion extends Component {
 }
 
 
-const styles = StyleSheet.create({ 
+const styles = StyleSheet.create({
   container: {
     width: width,
     height: 250,
@@ -60,7 +58,7 @@ const styles = StyleSheet.create({
   },
   surface: {
     elevation: 5,
-    height: 165,
+    height: 120,
     width: 120,
     borderRadius: 10,
     marginRight: 10,
@@ -73,11 +71,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   name: {
-    position: 'absolute',
     color: '#000',
-    bottom: -40,
-    fontWeight: 'bold',
-    fontSize: 15,
+    width: 120,
+    bottom: 44,
+    fontSize: 13,
   },
 });
 

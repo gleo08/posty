@@ -1,31 +1,139 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, Image, SafeAreaView} from 'react-native';
+import {View, StyleSheet, Text, Image, SafeAreaView, StatusBar} from 'react-native';
 import Moment from 'moment';
 import Slider from 'react-native-slider';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon2 from 'react-native-vector-icons/Ionicons'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import {suggestData} from '../data/Data'
 
 class Player extends React.Component {
   constructor(props) {
     super(props);
   }
   state = {
+    playing: true,
+    shuffle: true,
+    repeat: false,
     img: this.props.route.params.item.img,
     title: this.props.route.params.item.title,
     description: this.props.route.params.item.description,
     timeRemaining: this.props.route.params.item.duration,
-    timeElapsed: "0:00",
+    timeElapsed: '0:00',
     trackLength: this.props.route.params.item.trackLength,
+    id: this.props.route.params.item.id,
   };
 
-  changeTime = seconds => {
-    this.setState({ timeElapsed: Moment.utc(seconds * 1000).format("m:ss") });
-    this.setState({ timeRemaining: Moment.utc((this.state.trackLength - seconds) * 1000).format("m:ss") });
+  onNextPress() {
+    let n = suggestData.length;
+    if (this.state.id < n - 1) {
+      this.setState({
+        playing: true,
+        img: suggestData[this.state.id + 1].img,
+        title: suggestData[this.state.id + 1].title,
+        description: suggestData[this.state.id + 1].description,
+        timeRemaining: suggestData[this.state.id + 1].duration,
+        timeElapsed: '0:00',
+        trackLength: suggestData[this.state.id + 1].trackLength,
+        id: suggestData[this.state.id + 1].id,
+      });
+    } else {
+      this.setState({
+        playing: true,
+        img: suggestData[0].img,
+        title: suggestData[0].title,
+        description: suggestData[0].description,
+        timeRemaining: suggestData[0].duration,
+        timeElapsed: '0:00',
+        trackLength: suggestData[0].trackLength,
+        id: suggestData[0].id,
+      });
+    }
   }
+
+  renderPlayPausePlayer() {
+    let playing = this.state.playing;
+
+    return playing == true ? (
+      <Icon2 name="pause-outline" size={35} color="#8E97A6"></Icon2>
+    ) : (
+      <Icon2 name="play-outline" size={35} color="#8E97A6"></Icon2>
+    );
+  }
+
+  renderShuffle() {
+    let shuffle = this.state.shuffle;
+    return shuffle == false ? (
+      <Icon2
+        name="shuffle-outline"
+        size={28}
+        color="#8E97A6"
+        style={{marginRight: 25}}></Icon2>
+    ) : (
+      <Icon2
+        name="shuffle-outline"
+        size={28}
+        color="#000"
+        style={{marginRight: 25}}></Icon2>
+    );
+  }
+
+  renderRepeat() {
+    let repeat = this.state.repeat;
+    return repeat == false ? (
+      <Icon2
+        name="repeat-outline"
+        size={28}
+        color="#8E97A6"
+        style={{marginLeft: 25}}></Icon2>
+    ) : (
+      <Icon2
+        name="repeat-outline"
+        size={28}
+        color="#000"
+        style={{marginLeft: 25}}></Icon2>
+    );
+  }
+
+  onBackPress() {
+    let n = suggestData.length;
+    if (this.state.id != 0) {
+      this.setState({
+        playing: true,
+        img: suggestData[this.state.id - 1].img,
+        title: suggestData[this.state.id - 1].title,
+        description: suggestData[this.state.id - 1].description,
+        timeRemaining: suggestData[this.state.id - 1].duration,
+        timeElapsed: '0:00',
+        trackLength: suggestData[this.state.id - 1].trackLength,
+        id: suggestData[this.state.id - 1].id,
+      });
+    } else {
+      this.setState({
+        playing: true,
+        img: suggestData[n - 1].img,
+        title: suggestData[n - 1].title,
+        description: suggestData[n - 1].description,
+        timeRemaining: suggestData[n - 1].duration,
+        timeElapsed: '0:00',
+        trackLength: suggestData[n - 1].trackLength,
+        id: suggestData[n - 1].id,
+      });
+    }
+  }
+
+  changeTime = (seconds) => {
+    this.setState({timeElapsed: Moment.utc(seconds * 1000).format('m:ss')});
+    this.setState({
+      timeRemaining: Moment.utc(
+        (this.state.trackLength - seconds) * 1000,
+      ).format('m:ss'),
+    });
+  };
 
   render() {
     return (
       <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="dark-content" backgroundColor="#DEE9FD" />
         <View style={{alignItems: 'center'}}>
           <View style={{alignItems: 'center', marginTop: 24}}>
             <Text style={[styles.textLight, {fontSize: 12}]}>PLAYING</Text>
@@ -45,13 +153,13 @@ class Player extends React.Component {
           </Text>
         </View>
 
-        <View style={{margin: 32, marginTop: 15}}>
+        <View style={{margin: 25, marginTop: 15}}>
           <Slider
             minimumValue={0}
             maximumValue={this.state.trackLength}
             trackStyle={styles.track}
             thumbStyle={styles.thumb}
-            minimumTrackTintColor="#93A8B3"
+            minimumTrackTintColor="#3b5998"
             onValueChange={(seconds) => this.changeTime(seconds)}></Slider>
           <View
             style={{
@@ -72,38 +180,43 @@ class Player extends React.Component {
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-              marginTop: 16,
+              marginTop: 30,
             }}>
-            <TouchableOpacity>
-              <Icon
-                name="random"
+            <TouchableOpacity
+              onPress={() => {
+                shuffle = this.state.shuffle;
+                this.setState({shuffle: !shuffle});
+              }}>
+              {this.renderShuffle()}
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.onBackPress()}>
+              <Icon2
+                name="play-skip-back-outline"
                 size={25}
                 color="#8E97A6"
-                style={{marginRight: 20}}></Icon>
+                style={{marginRight: 7}}></Icon2>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <Icon name="backward" size={25} color="#8E97A6" style={{marginRight: 4}}></Icon>
+            <TouchableOpacity
+              style={styles.playButtonContainer}
+              onPress={() => {
+                playing = this.state.playing;
+                this.setState({playing: !playing});
+              }}>
+              {this.renderPlayPausePlayer()}
             </TouchableOpacity>
-            <TouchableOpacity style={styles.playButtonContainer}>
-              <Icon
-                name="play"
-                size={30}
-                color="#8E97A6"
-                style={{marginLeft: 8}}></Icon>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Icon
-                name="forward"
+            <TouchableOpacity onPress={() => this.onNextPress()}>
+              <Icon2
+                name="play-skip-forward-outline"
                 size={25}
                 color="#8E97A6"
-                style={{marginLeft: 4}}></Icon>
+                style={{marginLeft: 7}}></Icon2>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <Icon
-                name="retweet"
-                size={25}
-                color="#8E97A6"
-                style={{marginLeft: 20}}></Icon>
+            <TouchableOpacity
+              onPress={() => {
+                repeat = this.state.repeat;
+                this.setState({repeat: !repeat});
+              }}>
+              {this.renderRepeat()}
             </TouchableOpacity>
           </View>
         </View>
@@ -114,10 +227,10 @@ class Player extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#EAEAEC',
+    backgroundColor: '#DEE9FD',
   },
   textLight: {
-    color: '#B6B7BF',
+    color: '#3D425C',
   },
   textDark: {
     color: '#3D425C',
@@ -146,9 +259,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   thumb: {
-    width: 10,
-    height: 10,
-    backgroundColor: '#3D425C',
+    width: 12,
+    height: 12,
+    backgroundColor: '#3b5998',
   },
   timeStamp: {
     fontSize: 14,
@@ -156,15 +269,14 @@ const styles = StyleSheet.create({
   },
   playButtonContainer: {
     backgroundColor: '#FFF',
-    borderColor: '#8E97A6',
-    borderWidth: 16,
-    width: 100,
-    height: 100,
-    borderRadius: 64,
+    width: 70,
+    height: 70,
+    borderRadius: 49,
     alignItems: 'center',
     justifyContent: 'center',
     marginHorizontal: 32,
-    elevation: 1,
+    elevation: 5,
+    marginLeft: 40,
   },
 });
 

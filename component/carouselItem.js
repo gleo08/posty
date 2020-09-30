@@ -8,10 +8,6 @@ const CarouselItem = ({item}) => {
   return (
     <View style={styles.cardView}>
       <Image style={styles.image} source={item.img} />
-      <TouchableOpacity style={styles.btn}>
-        <Icon name="play" size={18} color="#000" />
-        <Text style={styles.text}>Play now</Text>
-      </TouchableOpacity>
       <View style={styles.textView}>
         <Text style={styles.itemTitle}> {item.title}</Text>
         <Text style={styles.itemDescription}>{item.description}</Text>

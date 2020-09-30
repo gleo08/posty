@@ -26,6 +26,7 @@ export const suggestData = [
     description: 'Post Malone',
     duration: '3:30',
     trackLength: 210,
+    id: 0,
   },
   {
     title: 'Psycho',
@@ -33,6 +34,7 @@ export const suggestData = [
     description: 'Post Malone',
     duration: '3:00',
     trackLength: 180,
+    id: 1,
   },
   {
     title: 'Intensions',
@@ -40,6 +42,7 @@ export const suggestData = [
     description: 'Justin Bieber',
     duration: '4:45',
     trackLength: 285,
+    id: 2,
   },
   {
     title: '10000 Hours',
@@ -47,5 +50,22 @@ export const suggestData = [
     description: 'JB, Day, Shan',
     duration: '3:05',
     trackLength: 185,
+    id: 3,
+  },
+  {
+    title: 'Sunflower',
+    img: require('../asset/sunflower.jpg'),
+    description: 'Post Malone, Swae Lee',
+    duration: '3:05',
+    trackLength: 185,
+    id: 4,
+  },
+  {
+    title: 'Chờ anh nhé',
+    img: require('../asset/can.jpg'),
+    description: 'Hoàng Dũng',
+    duration: '3:05',
+    trackLength: 185,
+    id: 5,
   },
 ];
