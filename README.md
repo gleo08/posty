@@ -1,2 +1,2 @@
 # posty
-Fan of Post M
+Fan of Post Malone
