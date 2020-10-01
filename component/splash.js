@@ -8,7 +8,7 @@ class Splash extends React.Component {
         super(props);
         setTimeout(() => {
             this.props.navigation.navigate("Tabs");
-        }, 4000);
+        }, 2500);
     }
 
     render() {

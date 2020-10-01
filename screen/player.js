@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {View, StyleSheet, Text, Image, SafeAreaView, StatusBar} from 'react-native';
 import Moment from 'moment';
 import Slider from 'react-native-slider';
 import Icon2 from 'react-native-vector-icons/Ionicons'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import {suggestData} from '../data/Data'
+import {suggestData} from '../data/Data';
 
 class Player extends React.Component {
   constructor(props) {
@@ -22,6 +22,10 @@ class Player extends React.Component {
     trackLength: this.props.route.params.item.trackLength,
     id: this.props.route.params.item.id,
   };
+
+  onDownPress() {
+    this.props.navigation.navigate('Tabs');
+  }
 
   onNextPress() {
     let n = suggestData.length;
@@ -134,9 +138,20 @@ class Player extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="dark-content" backgroundColor="#DEE9FD" />
-        <View style={{alignItems: 'center'}}>
-          <View style={{alignItems: 'center', marginTop: 24}}>
+        <View style={{marginHorizontal: 24, marginTop: 24}}>
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+            }}>
+            <TouchableOpacity onPress={() => this.onDownPress()}>
+              <Icon2 name="chevron-down-outline" size={28} color="#8E97A6" />
+            </TouchableOpacity>
             <Text style={[styles.textLight, {fontSize: 12}]}>PLAYING</Text>
+            <TouchableOpacity>
+              <Icon2 name="menu-outline" size={28} color="#8E97A6" />
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -194,7 +209,7 @@ class Player extends React.Component {
                 name="play-skip-back-outline"
                 size={25}
                 color="#8E97A6"
-                style={{marginRight: 7}}></Icon2>
+                style={{marginRight: 4}}></Icon2>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.playButtonContainer}
@@ -209,7 +224,7 @@ class Player extends React.Component {
                 name="play-skip-forward-outline"
                 size={25}
                 color="#8E97A6"
-                style={{marginLeft: 7}}></Icon2>
+                style={{marginLeft: 4}}></Icon2>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {

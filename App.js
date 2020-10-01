@@ -14,6 +14,10 @@ import Tabs from './config/index';
 import { NavigationContainer } from '@react-navigation/native';
 import Splash from './component/splash';
 import Player from './screen/player';
+import Home from './screen/home';
+import Discover from './screen/discover';
+import Search from './screen/search';
+import Setting from './screen/setting';
 
 const Stack = createStackNavigator();
 
