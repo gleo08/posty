@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import {currentReducer} from './current'
+import currentReducer from './current'
 
 const rootReducer = combineReducers({
-    currentSong: currentReducer,
+    play: currentReducer,
 })
 
 export default rootReducer;

@@ -5,6 +5,7 @@ import Slider from 'react-native-slider';
 import Icon2 from 'react-native-vector-icons/Ionicons'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {suggestData} from '../data/Data';
+import { useSelector } from 'react-redux';
 
 function Player (props) {
   const [state, setState] = useState({
@@ -19,6 +20,10 @@ function Player (props) {
     trackLength: props.route.params.item.trackLength,
     id: props.route.params.item.id,
   })
+
+  const p = useSelector(state => state.play.playing)
+
+  console.log(p);
 
   onDownPress = () => {
     props.navigation.navigate('Tabs');
