@@ -4,7 +4,7 @@ import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import {suggestData} from '../data/Data';
 import {Surface} from 'react-native-paper';
 
-const {width, height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 class Suggestion extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class Suggestion extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Danh xuất đề xuất > </Text>
+        <Text style={styles.title}>Danh xuất đề xuất</Text>
         <FlatList
           data={suggestData}
           horizontal={true}

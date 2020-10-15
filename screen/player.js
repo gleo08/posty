@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {View, StyleSheet, Text, Image, SafeAreaView, StatusBar} from 'react-native';
 import Moment from 'moment';
 import Slider from 'react-native-slider';
@@ -6,42 +6,39 @@ import Icon2 from 'react-native-vector-icons/Ionicons'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {suggestData} from '../data/Data';
 
-class Player extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  state = {
+function Player (props) {
+  const [state, setState] = useState({
     playing: true,
     shuffle: true,
     repeat: false,
-    img: this.props.route.params.item.img,
-    title: this.props.route.params.item.title,
-    description: this.props.route.params.item.description,
-    timeRemaining: this.props.route.params.item.duration,
+    img: props.route.params.item.img,
+    title: props.route.params.item.title,
+    description: props.route.params.item.description,
+    timeRemaining: props.route.params.item.duration,
     timeElapsed: '0:00',
-    trackLength: this.props.route.params.item.trackLength,
-    id: this.props.route.params.item.id,
-  };
+    trackLength: props.route.params.item.trackLength,
+    id: props.route.params.item.id,
+  })
 
-  onDownPress() {
-    this.props.navigation.navigate('Tabs');
+  onDownPress = () => {
+    props.navigation.navigate('Tabs');
   }
 
-  onNextPress() {
+  onNextPress = () => {
     let n = suggestData.length;
-    if (this.state.id < n - 1) {
-      this.setState({
+    if (state.id < n - 1) {
+      setState({
         playing: true,
-        img: suggestData[this.state.id + 1].img,
-        title: suggestData[this.state.id + 1].title,
-        description: suggestData[this.state.id + 1].description,
-        timeRemaining: suggestData[this.state.id + 1].duration,
+        img: suggestData[state.id + 1].img,
+        title: suggestData[state.id + 1].title,
+        description: suggestData[state.id + 1].description,
+        timeRemaining: suggestData[state.id + 1].duration,
         timeElapsed: '0:00',
-        trackLength: suggestData[this.state.id + 1].trackLength,
-        id: suggestData[this.state.id + 1].id,
+        trackLength: suggestData[state.id + 1].trackLength,
+        id: suggestData[state.id + 1].id,
       });
     } else {
-      this.setState({
+      setState({
         playing: true,
         img: suggestData[0].img,
         title: suggestData[0].title,
@@ -54,8 +51,8 @@ class Player extends React.Component {
     }
   }
 
-  renderPlayPausePlayer() {
-    let playing = this.state.playing;
+  renderPlayPausePlayer = () => {
+    let playing = state.playing;
 
     return playing == true ? (
       <Icon2 name="pause-outline" size={35} color="#8E97A6"></Icon2>
@@ -64,8 +61,8 @@ class Player extends React.Component {
     );
   }
 
-  renderShuffle() {
-    let shuffle = this.state.shuffle;
+  renderShuffle = () => {
+    let shuffle = state.shuffle;
     return shuffle == false ? (
       <Icon2
         name="shuffle-outline"
@@ -81,8 +78,8 @@ class Player extends React.Component {
     );
   }
 
-  renderRepeat() {
-    let repeat = this.state.repeat;
+  renderRepeat = () => {
+    let repeat = state.repeat;
     return repeat == false ? (
       <Icon2
         name="repeat-outline"
@@ -98,21 +95,21 @@ class Player extends React.Component {
     );
   }
 
-  onBackPress() {
+  onBackPress = () => {
     let n = suggestData.length;
-    if (this.state.id != 0) {
-      this.setState({
+    if (state.id != 0) {
+      setState({
         playing: true,
-        img: suggestData[this.state.id - 1].img,
-        title: suggestData[this.state.id - 1].title,
-        description: suggestData[this.state.id - 1].description,
-        timeRemaining: suggestData[this.state.id - 1].duration,
+        img: suggestData[state.id - 1].img,
+        title: suggestData[state.id - 1].title,
+        description: suggestData[state.id - 1].description,
+        timeRemaining: suggestData[state.id - 1].duration,
         timeElapsed: '0:00',
-        trackLength: suggestData[this.state.id - 1].trackLength,
-        id: suggestData[this.state.id - 1].id,
+        trackLength: suggestData[state.id - 1].trackLength,
+        id: suggestData[state.id - 1].id,
       });
     } else {
-      this.setState({
+      setState({
         playing: true,
         img: suggestData[n - 1].img,
         title: suggestData[n - 1].title,
@@ -126,15 +123,14 @@ class Player extends React.Component {
   }
 
   changeTime = (seconds) => {
-    this.setState({timeElapsed: Moment.utc(seconds * 1000).format('m:ss')});
-    this.setState({
+    setState({timeElapsed: Moment.utc(seconds * 1000).format('m:ss')});
+    setState({
       timeRemaining: Moment.utc(
-        (this.state.trackLength - seconds) * 1000,
+        (state.trackLength - seconds) * 1000,
       ).format('m:ss'),
     });
   };
 
-  render() {
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="dark-content" backgroundColor="#DEE9FD" />
@@ -145,7 +141,7 @@ class Player extends React.Component {
               justifyContent: 'space-between',
               flexDirection: 'row',
             }}>
-            <TouchableOpacity onPress={() => this.onDownPress()}>
+            <TouchableOpacity onPress={() => onDownPress()}>
               <Icon2 name="chevron-down-outline" size={28} color="#8E97A6" />
             </TouchableOpacity>
             <Text style={[styles.textLight, {fontSize: 12}]}>PLAYING</Text>
@@ -156,26 +152,26 @@ class Player extends React.Component {
         </View>
 
         <View style={styles.coverContainer}>
-          <Image source={this.state.img} style={styles.cover}></Image>
+          <Image source={state.img} style={styles.cover}></Image>
         </View>
 
         <View style={{alignItems: 'center', marginTop: 25}}>
           <Text style={[styles.textDark, {fontSize: 20, fontWeight: 'bold'}]}>
-            {this.state.title}
+            {state.title}
           </Text>
           <Text style={[styles.text, {fontSize: 16, marginTop: 5}]}>
-            {this.state.description}
+            {state.description}
           </Text>
         </View>
 
         <View style={{margin: 25, marginTop: 15}}>
           <Slider
             minimumValue={0}
-            maximumValue={this.state.trackLength}
+            maximumValue={state.trackLength}
             trackStyle={styles.track}
             thumbStyle={styles.thumb}
             minimumTrackTintColor="#3b5998"
-            onValueChange={(seconds) => this.changeTime(seconds)}></Slider>
+            onValueChange={(seconds) => changeTime(seconds)}></Slider>
           <View
             style={{
               marginTop: -12,
@@ -183,10 +179,10 @@ class Player extends React.Component {
               justifyContent: 'space-between',
             }}>
             <Text style={[styles.textLight, styles.timeStamp]}>
-              {this.state.timeElapsed}
+              {state.timeElapsed}
             </Text>
             <Text style={[styles.textLight, styles.timeStamp]}>
-              {this.state.timeRemaining}
+              {state.timeRemaining}
             </Text>
           </View>
 
@@ -199,12 +195,12 @@ class Player extends React.Component {
             }}>
             <TouchableOpacity
               onPress={() => {
-                shuffle = this.state.shuffle;
-                this.setState({shuffle: !shuffle});
+                shuffle = state.shuffle;
+                setState({shuffle: !shuffle});
               }}>
-              {this.renderShuffle()}
+              {renderShuffle()}
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.onBackPress()}>
+            <TouchableOpacity onPress={() => onBackPress()}>
               <Icon2
                 name="play-skip-back-outline"
                 size={25}
@@ -214,12 +210,12 @@ class Player extends React.Component {
             <TouchableOpacity
               style={styles.playButtonContainer}
               onPress={() => {
-                playing = this.state.playing;
-                this.setState({playing: !playing});
+                playing = state.playing;
+                setState({playing: !playing});
               }}>
-              {this.renderPlayPausePlayer()}
+              {renderPlayPausePlayer()}
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.onNextPress()}>
+            <TouchableOpacity onPress={() => onNextPress()}>
               <Icon2
                 name="play-skip-forward-outline"
                 size={25}
@@ -228,17 +224,17 @@ class Player extends React.Component {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                repeat = this.state.repeat;
-                this.setState({repeat: !repeat});
+                repeat = state.repeat;
+                setState({repeat: !repeat});
               }}>
-              {this.renderRepeat()}
+              {renderRepeat()}
             </TouchableOpacity>
           </View>
         </View>
       </SafeAreaView>
     );
   }
-}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -265,8 +261,7 @@ const styles = StyleSheet.create({
   cover: {
     width: 250,
     height: 250,
-    borderRadius: 50,
-    marginLeft: 52,
+    marginLeft: 55,
   },
   track: {
     height: 2,

@@ -21,9 +21,8 @@ class Trending extends Component {
     render() {
         return (
           <View style={styles.container}>
-            <Text style={styles.title}>Top thịnh hành ></Text>
-            <View style={{padding: 10, paddingTop: 0}} >
-                <FlatList
+            <Text style={styles.title}>Top thịnh hành</Text>
+                <FlatList style={{padding: 10, paddingTop: 0}}
                     data = {suggestData}
                     showsVerticalScrollIndicator={false}
                     ItemSeparatorComponent = {() => this.separator()}
@@ -49,7 +48,6 @@ class Trending extends Component {
                     }}
                 />
             </View>
-          </View>
         );
 }
 }

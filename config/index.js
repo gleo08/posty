@@ -5,7 +5,6 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screen/home';
 import Discover from '../screen/discover';
 import Search from '../screen/search';
-import Setting from '../screen/setting';
 
 const Tab = createBottomTabNavigator();
 
@@ -56,19 +55,6 @@ function Tabs() {
           tabBarIcon: ({focused, color}) => (
             <Icon
               name={focused ? 'magnify' : 'magnify'}
-              size={28}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Cài đặt"
-        component={Setting}
-        options={{
-          tabBarIcon: ({focused, color}) => (
-            <Icon
-              name={focused ? 'cog' : 'cog-outline'}
               size={28}
               color={color}
             />
