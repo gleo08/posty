@@ -1,6 +1,6 @@
-export const setPlay = (value) => {
+export const currentSong = (value) => {
     return {
-        type: "SET_PLAY",
+        type: "SET_SONG",
         payload: value
     }
 }

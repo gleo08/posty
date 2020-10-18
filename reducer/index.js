@@ -1,8 +1,10 @@
 import {combineReducers} from 'redux';
-import currentReducer from './current'
+import currentReducer from './current';
+import statusReducer from './status'
 
 const rootReducer = combineReducers({
-    play: currentReducer,
+    status: statusReducer,
+    current: currentReducer,
 })
 
 export default rootReducer;

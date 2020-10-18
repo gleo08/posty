@@ -5,11 +5,13 @@ import Slider from 'react-native-slider';
 import Icon2 from 'react-native-vector-icons/Ionicons'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {suggestData} from '../data/Data';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setStatus } from '../action/status';
 
 function Player (props) {
+  const status = useSelector(state => state.status.playing);
+
   const [state, setState] = useState({
-    playing: true,
     shuffle: true,
     repeat: false,
     img: props.route.params.item.img,
@@ -21,9 +23,9 @@ function Player (props) {
     id: props.route.params.item.id,
   })
 
-  const p = useSelector(state => state.play.playing)
+  console.log(status);
 
-  console.log(p);
+  const dispatch = useDispatch();
 
   onDownPress = () => {
     props.navigation.navigate('Tabs');
@@ -33,7 +35,6 @@ function Player (props) {
     let n = suggestData.length;
     if (state.id < n - 1) {
       setState({
-        playing: true,
         img: suggestData[state.id + 1].img,
         title: suggestData[state.id + 1].title,
         description: suggestData[state.id + 1].description,
@@ -44,7 +45,6 @@ function Player (props) {
       });
     } else {
       setState({
-        playing: true,
         img: suggestData[0].img,
         title: suggestData[0].title,
         description: suggestData[0].description,
@@ -57,9 +57,7 @@ function Player (props) {
   }
 
   renderPlayPausePlayer = () => {
-    let playing = state.playing;
-
-    return playing == true ? (
+    return status == true ? (
       <Icon2 name="pause-outline" size={35} color="#8E97A6"></Icon2>
     ) : (
       <Icon2 name="play-outline" size={35} color="#8E97A6"></Icon2>
@@ -104,7 +102,6 @@ function Player (props) {
     let n = suggestData.length;
     if (state.id != 0) {
       setState({
-        playing: true,
         img: suggestData[state.id - 1].img,
         title: suggestData[state.id - 1].title,
         description: suggestData[state.id - 1].description,
@@ -115,7 +112,6 @@ function Player (props) {
       });
     } else {
       setState({
-        playing: true,
         img: suggestData[n - 1].img,
         title: suggestData[n - 1].title,
         description: suggestData[n - 1].description,
@@ -215,8 +211,7 @@ function Player (props) {
             <TouchableOpacity
               style={styles.playButtonContainer}
               onPress={() => {
-                playing = state.playing;
-                setState({playing: !playing});
+                dispatch(setStatus(!status));
               }}>
               {renderPlayPausePlayer()}
             </TouchableOpacity>

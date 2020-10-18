@@ -1,13 +1,24 @@
 const initialState = {
-    playing: true
+    img: null,
+    title: null,
+    description: null,
+    timeRemaining: null,
+    timeElapsed: '0:00',
+    trackLength: null,
+    id: null,
 }
 
 const currentReducer = (state = initialState, action) => {
     switch(action.type) {
-        case "SET_PLAY": {
+        case "SET_SONG": {
             return {
                 ...state,
-                playing: action.payload
+                img: action.payload,
+                title: action.payload,
+                description: action.payload,
+                timeRemaining: action.payload,
+                trackLength: action.payload,
+                id: action.payload,
             };
         }
 
