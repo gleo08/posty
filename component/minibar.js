@@ -6,9 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { setStatus } from '../action/status';
 
-
-
-function MiniBar(props) {
+function MiniBar() {
     const status = useSelector(state => state.status.playing);
     const dispatch = useDispatch();
 
@@ -17,8 +15,7 @@ function MiniBar(props) {
     })
 
     renderHeart = () => {
-        let heart = state.heart;
-        return heart == true ? (
+        return state.heart == true ? (
             <Icon name="cards-heart" size={23}/>
         ) : (
             <Icon2 name="heart-outline" size={23} />
@@ -75,6 +72,7 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     image: {
+        left: 10,
         width: 50,
         height: 50,
     },
@@ -97,14 +95,13 @@ const styles = StyleSheet.create({
         color: 'black',
         fontSize: 15,
         bottom: -5,
-        left: 10,
-        // fontWeight: 'bold',
+        left: 14,
     },
     description: {
         color: 'gray',
         fontSize: 11,
         bottom: -7,
-        left: 10,
+        left: 15,
     }
 
 })

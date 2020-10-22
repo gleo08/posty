@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon2 from 'react-native-vector-icons/Ionicons'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import Home from '../screen/home';
@@ -26,8 +27,8 @@ function Tabs() {
         component={Home}
         options={{
           tabBarIcon: ({focused, color}) => (
-            <Icon
-              name={focused ? 'home' : 'home-outline'}
+            <Icon2
+              name={focused ? 'musical-notes-outline' : 'musical-notes-outline'}
               size={28}
               color={color}
               label
