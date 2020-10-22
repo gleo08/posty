@@ -1,24 +1,24 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Text, Dimensions, Image} from 'react-native';
 import { FlatList, TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { useDispatch } from 'react-redux';
+import { setStatus } from '../action/status';
 import { suggestData } from '../data/Data'
 
 const {width, height} = Dimensions.get('window')
 
-class Trending extends Component {
-    constructor(props) {
-        super(props);
-    }
+function Trending (props) {
+
+    const dispatch = useDispatch();
 
     separator = () => {
         return <View style={{height: 10, backgroundColor: '#fff'}} />;
     }
 
     playSong = item => {
-        this.props.navigation.navigate('Player', {item: item});
+        dispatch(setStatus(true))
+        props.navigation.navigate('Player', {item: item});
     }
-
-    render() {
         return (
           <View style={styles.container}>
             <Text style={styles.title}>Top thịnh hành</Text>
@@ -30,7 +30,7 @@ class Trending extends Component {
                         return (
                             <TouchableOpacity 
                             style={styles.songContainer}
-                            onPress = {() => this.playSong(item)} 
+                            onPress = {() => playSong(item)} 
                             >
                                 <View style={{flexDirection: 'row'}}>
                                     <Image  
@@ -49,7 +49,6 @@ class Trending extends Component {
                 />
             </View>
         );
-}
 }
 
 const styles = StyleSheet.create({
@@ -79,11 +78,11 @@ const styles = StyleSheet.create({
       width: width - 70,
   },
   songTitle: {
-      fontSize: 18,
+      fontSize: 16,
       color: '#000'
   },
   description: {
-      fontSize: 14,
+      fontSize: 12,
       color: 'gray',
   },
   duration: {

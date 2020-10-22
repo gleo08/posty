@@ -2,6 +2,7 @@ const initialState = {
     img: null,
     title: null,
     description: null,
+    showing: false,
     // timeRemaining: null,
     // timeElapsed: '0:00',
     // trackLength: null,

@@ -2,34 +2,46 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, StatusBar} from 'react-native';
 import Carousel from '../component/carousel';
 import {dummyData} from '../data/Data';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView} from 'react-native-gesture-handler';
 import Suggestion from '../component/suggest';
 import Trending from '../component/trending';
 import MiniBar from '../component/minibar';
+import { useSelector } from 'react-redux';
 
-class Discover extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
+function Discover (props) {
+
+  const showing = useSelector(state => state.current.showing);
+
+  renderMiniBar = () => {
+    if (showing) {}
+      return showing == true ?(
+          <MiniBar />
+      ) : (
+        null
+      );
+    }
+
   console.disableYellowBox=true;
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <Text style={styles.title}>Khám phá </Text>
       <ScrollView>
-        <Carousel navigation={this.props.navigation} data={dummyData} />
-        <Suggestion navigation={this.props.navigation} />
-        <Trending navigation={this.props.navigation} />
+        <Carousel navigation={props.navigation} data={dummyData} />
+        <Suggestion navigation={props.navigation} />
+        <Trending navigation={props.navigation} />
         <Text></Text>
         <Text></Text>
         <Text></Text>
       </ScrollView>
-      <MiniBar />
+      <View>   
+          {renderMiniBar()}
+      </View>  
     </View>
   );
-}
-}
+  }
+
+export default Discover;
 
 const styles = StyleSheet.create({
   title: {
@@ -43,6 +55,4 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-});
-
-export default Discover;
+})

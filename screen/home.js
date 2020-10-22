@@ -1,11 +1,18 @@
-import React, {Component} from 'react';
-import {View, StyleSheet} from 'react-native';
+import React from 'react';
+import {View, StyleSheet, Text} from 'react-native';
+import { useSelector } from 'react-redux';
 
-class Home extends Component {
-  state = {};
-  render() {
-    return <View style={styles.container} />;
-  }
+function Home () {
+
+  const status = useSelector(state => state.status.playing);
+  console.log(status);
+  const showing = useSelector(state => state.current.showing);
+  console.log(showing);
+    return (
+      <View style={styles.container}>
+        {/* <Text>{status}</Text> */}
+      </View>
+    )
 }
 
 export default Home;

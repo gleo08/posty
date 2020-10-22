@@ -11,7 +11,6 @@ import { currentSong } from '../action/current';
 
 function Player (props) {
   const status = useSelector(state => state.status.playing);
-  const currentSongTitle = useSelector(state => state.current.title);
 
   const [state, setState] = useState({
     shuffle: true,
@@ -34,6 +33,7 @@ function Player (props) {
         img: state.img, 
         title: state.title,
         description: state.description, 
+        showing: true,
       }
       ));
   }
