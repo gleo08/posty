@@ -7,9 +7,11 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import {suggestData} from '../data/Data';
 import { useDispatch, useSelector } from 'react-redux';
 import { setStatus } from '../action/status';
+import { currentSong } from '../action/current';
 
 function Player (props) {
   const status = useSelector(state => state.status.playing);
+  const currentSongTitle = useSelector(state => state.current.title);
 
   const [state, setState] = useState({
     shuffle: true,
@@ -23,12 +25,17 @@ function Player (props) {
     id: props.route.params.item.id,
   })
 
-  console.log(status);
-
   const dispatch = useDispatch();
 
   onDownPress = () => {
     props.navigation.navigate('Tabs');
+    dispatch(currentSong(
+      {
+        img: state.img, 
+        title: state.title,
+        description: state.description, 
+      }
+      ));
   }
 
   onNextPress = () => {

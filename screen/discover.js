@@ -5,6 +5,7 @@ import {dummyData} from '../data/Data';
 import { ScrollView } from 'react-native-gesture-handler';
 import Suggestion from '../component/suggest';
 import Trending from '../component/trending';
+import MiniBar from '../component/minibar';
 
 class Discover extends Component {
   constructor(props) {
@@ -20,7 +21,11 @@ class Discover extends Component {
         <Carousel navigation={this.props.navigation} data={dummyData} />
         <Suggestion navigation={this.props.navigation} />
         <Trending navigation={this.props.navigation} />
+        <Text></Text>
+        <Text></Text>
+        <Text></Text>
       </ScrollView>
+      <MiniBar />
     </View>
   );
 }

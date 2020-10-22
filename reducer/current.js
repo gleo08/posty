@@ -2,10 +2,10 @@ const initialState = {
     img: null,
     title: null,
     description: null,
-    timeRemaining: null,
-    timeElapsed: '0:00',
-    trackLength: null,
-    id: null,
+    // timeRemaining: null,
+    // timeElapsed: '0:00',
+    // trackLength: null,
+    // id: null,
 }
 
 const currentReducer = (state = initialState, action) => {
@@ -13,12 +13,10 @@ const currentReducer = (state = initialState, action) => {
         case "SET_SONG": {
             return {
                 ...state,
-                img: action.payload,
-                title: action.payload,
-                description: action.payload,
-                timeRemaining: action.payload,
-                trackLength: action.payload,
-                id: action.payload,
+                ...action.payload
+                // timeRemaining: action.payload,
+                // trackLength: action.payload,
+                // id: action.payload,
             };
         }
 

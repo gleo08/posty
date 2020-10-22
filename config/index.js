@@ -16,7 +16,7 @@ function Tabs() {
         inactiveTintColor: 'gray',
         activeTintColor: '#000',
         tabStyle: {
-          backgroundColor: '#fff',
+          backgroundColor: '#EEEEEE',
           height: 60,
           paddingBottom: 12,
         },

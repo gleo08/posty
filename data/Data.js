@@ -37,7 +37,7 @@ export const suggestData = [
     id: 1,
   },
   {
-    title: 'Intensions',
+    title: 'Intentions',
     img: require('../asset/intensions.jpg'),
     description: 'Justin Bieber',
     duration: '4:45',

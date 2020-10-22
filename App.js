@@ -47,9 +47,9 @@ function Stacks() {
 
 function MainScreen() {
   return (
-    <NavigationContainer>
-      <Stacks />
-    </NavigationContainer>
+      <NavigationContainer>
+        <Stacks />
+      </NavigationContainer>
   );
 }
 
