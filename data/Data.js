@@ -21,8 +21,8 @@ export const dummyData = [
 
 export const suggestData = [
   {
-    title: 'Goodbyes',
-    img: require('../asset/goodbyes.jpg'),
+    title: 'Circles',
+    img: require('../asset/circles2.jpg'),
     artist: 'Post Malone',
     duration: '3:30',
     url: require('../mp3/Circles.mp3'),
@@ -30,13 +30,22 @@ export const suggestData = [
     id: 0,
   },
   {
+    title: 'Goodbyes',
+    img: require('../asset/goodbyes.jpg'),
+    artist: 'Post Malone',
+    duration: '3:30',
+    url: require('../mp3/Goodbyes.mp3'),
+    trackLength: 210,
+    id: 1,
+  },
+  {
     title: 'Psycho',
     img: require('../asset/psycho.jpg'),
     artist: 'Post Malone',
     duration: '3:00',
-    url: 'https://samplesongs.netlify.app/Death%20Bed.mp3',
+    url:  require('../mp3/Pyscho.mp3'),
     trackLength: 180,
-    id: 1,
+    id: 2,
   },
   {
     title: 'Intentions',
@@ -45,7 +54,7 @@ export const suggestData = [
     duration: '4:45',
     url: 'https://samplesongs.netlify.app/Death%20Bed.mp3',
     trackLength: 285,
-    id: 2,
+    id: 3,
   },
   {
     title: '10000 Hours',
@@ -54,16 +63,16 @@ export const suggestData = [
     duration: '3:05',
     url: 'https://samplesongs.netlify.app/Death%20Bed.mp3',
     trackLength: 185,
-    id: 3,
+    id: 4,
   },
   {
     title: 'Sunflower',
     img: require('../asset/sunflower.jpg'),
     artist: 'Post Malone, Swae Lee',
     duration: '3:05',
-    url: 'https://samplesongs.netlify.app/Death%20Bed.mp3',
+    url: require('../mp3/Sunflower.mp3'),
     trackLength: 185,
-    id: 4,
+    id: 5,
   },
   {
     title: 'Chờ anh nhé',
@@ -72,6 +81,6 @@ export const suggestData = [
     duration: '3:05',
     url: 'https://samplesongs.netlify.app/Death%20Bed.mp3',
     trackLength: 185,
-    id: 5,
+    id: 6,
   },
 ];

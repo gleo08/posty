@@ -49,7 +49,7 @@ function Player (props) {
 
       setTimeout(() => {
         TrackPlayer.stop();
-      }, track.trackLength * 1000); 
+      }, current.trackLength * 1000); 
     })();
   }, [index]);
 
@@ -148,6 +148,7 @@ function Player (props) {
         img: suggestData[current.id - 1].img,
         title: suggestData[current.id - 1].title,
         artist: suggestData[current.id - 1].artist,
+        url: suggestData[current.id  - 1].url,
         timeRemaining: suggestData[current.id - 1].duration,
         timeElapsed: '0:00',
         trackLength: suggestData[current.id - 1].trackLength,
@@ -158,12 +159,19 @@ function Player (props) {
         img: suggestData[n - 1].img,
         title: suggestData[n - 1].title,
         artist: suggestData[n - 1].artist,
+        url: suggestData[n - 1].url,
         timeRemaining: suggestData[n - 1].duration,
         timeElapsed: '0:00',
         trackLength: suggestData[n - 1].trackLength,
         id: suggestData[n - 1].id,
       }));
     }
+    dispatch(setStatus(true));
+    TrackPlayer.reset();
+    console.log(current);
+    TrackPlayer.add(current).then(() => {
+      TrackPlayer.play();
+    })
   }
 
   changeTime = (seconds) => {
