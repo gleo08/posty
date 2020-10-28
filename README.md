@@ -1,4 +1,4 @@
-# posty
+# Posty
 Just a big fan of Post Malone
 
 # Wanna try
