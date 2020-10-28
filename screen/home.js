@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import { useSelector } from 'react-redux';
+import MiniBar from '../component/minibar';
 
 function Home () {
 
@@ -10,7 +11,10 @@ function Home () {
   console.log(showing);
     return (
       <View style={styles.container}>
-        {/* <Text>{status}</Text> */}
+        <Text style={styles.text}>Tue cat moi</Text>
+        <View>
+          <MiniBar />
+        </View>
       </View>
     )
 }
@@ -21,24 +25,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+
+  text: {
+    bottom: 10,
+  },
+
+  mini: {
+
+  }
 });
-
-// import React, {Component} from 'react';
-// import {View, StyleSheet, Text} from 'react-native';
-// import Banner from '../component/banner';
-
-// class Home extends Component {
-//     constructor(props) {
-//         super(props);
-//     }
-//     render () {
-//         return (
-//         <View style={styles.container}>
-//             <Text style={styles.title}>Posty</Text>
-//             <Banner navigation = {this.props.navigation} />
-//         </View>
-//         )
-//     }
-// }
-
-// export default Home;
