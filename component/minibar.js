@@ -10,39 +10,12 @@ import TrackPlayer from 'react-native-track-player';
 function MiniBar() {
 
     const status = useSelector(state => state.status.playing);
-    console.log(status);
     const current = useSelector(state => state.current);
     const dispatch = useDispatch();
 
-    const track = { 
-        img: current.img,
-        title: current.title,
-        artist: current.artist,
-        url: current.url,
-        timeRemaining: current.timeRemaining,
-        trackLength: current.trackLength,
-        id: current.id,
-    };
-    console.log(track);
     const [state, setState] = useState({
         heart: false
     })
-
-    // useEffect(() => {
-    //     (async () => {
-    //         await TrackPlayer.setupPlayer().then(() => {
-    //         console.log('player is setup');
-    //     });
-
-    //         await TrackPlayer.add([track]);
-
-    //         await TrackPlayer.play();
-
-    //         setTimeout(() => {
-    //             TrackPlayer.stop();
-    //         }, track.trackLength); 
-    //     })();
-    // }, []);
 
     onPlayPauseTrack = () => {
         if (status) {
@@ -99,15 +72,6 @@ function MiniBar() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        position: 'absolute',
-        bottom: -15,
-        backgroundColor: '#EEEEEE',
-        flexDirection: 'row',
-        margin: 15,
-        left: -15,
-        width: '100%',
-    },
     image: {
         left: 10,
         width: 50,
@@ -139,6 +103,15 @@ const styles = StyleSheet.create({
         fontSize: 11,
         bottom: -7,
         left: 15,
+    },
+    container: {
+        position: 'absolute',
+        bottom: -15,
+        backgroundColor: '#EEEEEE',
+        flexDirection: 'row',
+        margin: 15,
+        left: -15,
+        width: '100%',
     }
 
 })

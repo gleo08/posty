@@ -33,7 +33,7 @@ function Discover (props) {
         <Text></Text>
         <Text></Text>
       </ScrollView>
-      <View style={styles.mini}>
+      <View>
           {renderMiniBar()}
       </View>
     </View>
@@ -54,13 +54,4 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  mini: {
-        position: 'absolute',
-        bottom: -15,
-        backgroundColor: '#EEEEEE',
-        flexDirection: 'row',
-        margin: 15,
-        left: -15,
-        width: '100%',
-    },
 })
