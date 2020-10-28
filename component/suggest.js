@@ -5,6 +5,7 @@ import {suggestData} from '../data/Data';
 import {Surface} from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import { setStatus } from '../action/status';
+import { currentSong } from '../action/current';
 
 const {width} = Dimensions.get('window');
 
@@ -12,10 +13,10 @@ function Suggestion (props) {
 
   const dispatch = useDispatch();
 
-  playSong = (item) => {
-    dispatch(setStatus(true));
-    props.navigation.navigate('Player', {item: item});
+  playSong = () => {
+    props.navigation.navigate('Player');
   };
+
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Danh xuất đề xuất</Text>
@@ -26,7 +27,21 @@ function Suggestion (props) {
           renderItem={({item, index}) => {
             return (
               <TouchableOpacity 
-                onPress={() => playSong(item)}
+                onPress={() => {
+                  playSong();
+                  dispatch(setStatus(true));
+                  dispatch(currentSong(
+                    {
+                      img: item.img,   
+                      title: item.title,
+                      artist: item.artist,
+                      url: item.url,
+                      trackLength: item.trackLength,
+                      id: item.id,
+                      timeRemaining: item.duration,
+                    }
+                  ));
+                }}
               >
                 <Surface style={styles.surface}>
                   <ImageBackground
@@ -34,7 +49,7 @@ function Suggestion (props) {
                     style={styles.img}></ImageBackground>
                 </Surface>
                 <Text style={styles.name}>
-                  {item.title} - {item.description}
+                  {item.title} - {item.artist}
                 </Text>
               </TouchableOpacity>
             );

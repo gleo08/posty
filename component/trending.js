@@ -39,7 +39,7 @@ function Trending (props) {
                                     />
                                     <View style={styles.dataContainer}>
                                         <Text style={styles.songTitle}>{item.title}</Text>
-                                        <Text style={styles.description}>{item.description}</Text>
+                                        <Text style={styles.artist}>{item.artist}</Text>
                                         <Text style={styles.duration}>{item.duration}</Text>
                                     </View>
                                 </View>
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
       fontSize: 16,
       color: '#000'
   },
-  description: {
+  artist: {
       fontSize: 12,
       color: 'gray',
   },

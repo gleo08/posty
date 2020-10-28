@@ -8,6 +8,7 @@ import App from './App';
 import {name as appName} from './app.json';
 import store from './store';
 import React from 'react';
+import TrackPlayer from 'react-native-track-player';
 
 const RNRedux = () => {
     return (
@@ -18,3 +19,4 @@ const RNRedux = () => {
 }
 
 AppRegistry.registerComponent(appName, () => RNRedux);
+TrackPlayer.registerPlaybackService(() => require('./service'));

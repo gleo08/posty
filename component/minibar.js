@@ -1,18 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Text, View, Image, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { setStatus } from '../action/status';
+import TrackPlayer from 'react-native-track-player';
 
 function MiniBar() {
+
     const status = useSelector(state => state.status.playing);
+    console.log(status);
+    const current = useSelector(state => state.current);
     const dispatch = useDispatch();
 
+    const track = { 
+        img: current.img,
+        title: current.title,
+        artist: current.artist,
+        url: current.url,
+        timeRemaining: current.timeRemaining,
+        trackLength: current.trackLength,
+        id: current.id,
+    };
+    console.log(track);
     const [state, setState] = useState({
         heart: false
     })
+
+    // useEffect(() => {
+    //     (async () => {
+    //         await TrackPlayer.setupPlayer().then(() => {
+    //         console.log('player is setup');
+    //     });
+
+    //         await TrackPlayer.add([track]);
+
+    //         await TrackPlayer.play();
+
+    //         setTimeout(() => {
+    //             TrackPlayer.stop();
+    //         }, track.trackLength); 
+    //     })();
+    // }, []);
+
+    onPlayPauseTrack = () => {
+        if (status) {
+            TrackPlayer.pause();
+        } else {
+            TrackPlayer.play();
+        }
+    }
 
     renderHeart = () => {
         return state.heart == true ? (
@@ -28,16 +66,14 @@ function MiniBar() {
             <Icon2 name="play-outline" size={23} ></Icon2>
         );
   }
-    const img = useSelector(state => state.current.img)
-    const description = useSelector(state => state.current.description)
-    const title = useSelector(state => state.current.title)
+
     return (
         <View style={styles.container}>
-                <Image source={img} style={styles.image}/>
+                <Image source={current.img} style={styles.image}/>
                 <View style={styles.rightContainer}>
                     <View style={styles.nameContainer}>
-                        <Text style={styles.title}>{title}</Text>
-                        <Text style={styles.description}>{description}</Text>
+                        <Text style={styles.title}>{current.title}</Text>
+                        <Text style={styles.description}>{current.artist}</Text>
                     </View>
                     <View style={styles.iconContainer}>
                         <TouchableOpacity
@@ -51,6 +87,7 @@ function MiniBar() {
                     <TouchableOpacity 
                         onPress={() => {
                             dispatch(setStatus(!status));
+                            onPlayPauseTrack();
                         }}
                     >
                         {renderPlayPausePlayer()}

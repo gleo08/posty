@@ -10,6 +10,8 @@ target 'Posty' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'RNSoundPlayer', :path => '../node_modules/react-native-sound-player'
+
   target 'PostyTests' do
     inherit! :complete
     # Pods for testing

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, StatusBar} from 'react-native';
 import Carousel from '../component/carousel';
 import {dummyData} from '../data/Data';
-import { ScrollView} from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import Suggestion from '../component/suggest';
 import Trending from '../component/trending';
 import MiniBar from '../component/minibar';
@@ -10,10 +10,9 @@ import { useSelector } from 'react-redux';
 
 function Discover (props) {
 
-  const showing = useSelector(state => state.current.showing);
+  const showing = useSelector(state => state.showing.showing);
 
   renderMiniBar = () => {
-    if (showing) {}
       return showing == true ?(
           <MiniBar />
       ) : (
@@ -34,9 +33,9 @@ function Discover (props) {
         <Text></Text>
         <Text></Text>
       </ScrollView>
-      <View>   
+      <View>
           {renderMiniBar()}
-      </View>  
+      </View>
     </View>
   );
   }

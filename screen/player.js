@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {View, StyleSheet, Text, Image, SafeAreaView, StatusBar} from 'react-native';
 import Moment from 'moment';
 import Slider from 'react-native-slider';
@@ -7,60 +7,96 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import {suggestData} from '../data/Data';
 import { useDispatch, useSelector } from 'react-redux';
 import { setStatus } from '../action/status';
+import { setShowing } from '../action/showing';
 import { currentSong } from '../action/current';
+import TrackPlayer from 'react-native-track-player';
 
 function Player (props) {
   const status = useSelector(state => state.status.playing);
+  const current = useSelector(state => state.current);
 
+  // const track = { 
+  //   img: current.img,
+  //   title: current.title,
+  //   artist: current.artist,
+  //   url: current.url,
+  //   timeRemaining: current.timeRemaining,
+  //   trackLength: current.trackLength,
+  //   id: current.id,
+  // };
+
+  // console.log(track);
+
+  const index = current.id;
+  
   const [state, setState] = useState({
     shuffle: true,
     repeat: false,
-    img: props.route.params.item.img,
-    title: props.route.params.item.title,
-    description: props.route.params.item.description,
-    timeRemaining: props.route.params.item.duration,
-    timeElapsed: '0:00',
-    trackLength: props.route.params.item.trackLength,
-    id: props.route.params.item.id,
   })
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    (async () => {
+      await TrackPlayer.setupPlayer().then(() => {
+        console.log('player is setup');
+      });
+      await TrackPlayer.reset();
+
+      await TrackPlayer.add([current]);
+
+      await TrackPlayer.play();
+
+      setTimeout(() => {
+        TrackPlayer.stop();
+      }, track.trackLength * 1000); 
+    })();
+  }, [index]);
+
+  onPlayPauseTrack = () => {
+    if (status) {
+      TrackPlayer.pause();
+    } else {
+      TrackPlayer.play();
+    }
+  }
+
   onDownPress = () => {
+    dispatch(setShowing(true));
     props.navigation.navigate('Tabs');
-    dispatch(currentSong(
-      {
-        img: state.img, 
-        title: state.title,
-        description: state.description, 
-        showing: true,
-      }
-      ));
   }
 
   onNextPress = () => {
     let n = suggestData.length;
-    if (state.id < n - 1) {
-      setState({
-        img: suggestData[state.id + 1].img,
-        title: suggestData[state.id + 1].title,
-        description: suggestData[state.id + 1].description,
-        timeRemaining: suggestData[state.id + 1].duration,
+    if (current.id < n - 1) {
+      dispatch(currentSong({
+        img: suggestData[current.id + 1].img,
+        title: suggestData[current.id + 1].title,
+        artist: suggestData[current.id+ 1].artist,
+        url: suggestData[current.id + 1].url,
+        timeRemaining: suggestData[current.id + 1].duration,
         timeElapsed: '0:00',
-        trackLength: suggestData[state.id + 1].trackLength,
-        id: suggestData[state.id + 1].id,
-      });
+        trackLength: suggestData[current.id + 1].trackLength,
+        id: suggestData[current.id + 1].id,
+      }));
     } else {
-      setState({
+      dispatch(currentSong({
         img: suggestData[0].img,
         title: suggestData[0].title,
-        description: suggestData[0].description,
+        artist: suggestData[0].artist,
+        url: suggestData[0].url,
         timeRemaining: suggestData[0].duration,
         timeElapsed: '0:00',
         trackLength: suggestData[0].trackLength,
         id: suggestData[0].id,
-      });
+      }));
     }
+    dispatch(setStatus(true));
+    TrackPlayer.reset();
+    console.log(current);
+    TrackPlayer.add(current).then(() => {
+      TrackPlayer.play();
+    })
   }
 
   renderPlayPausePlayer = () => {
@@ -107,26 +143,26 @@ function Player (props) {
 
   onBackPress = () => {
     let n = suggestData.length;
-    if (state.id != 0) {
-      setState({
-        img: suggestData[state.id - 1].img,
-        title: suggestData[state.id - 1].title,
-        description: suggestData[state.id - 1].description,
-        timeRemaining: suggestData[state.id - 1].duration,
+    if (current.id != 0) {
+      dispatch(currentSong({
+        img: suggestData[current.id - 1].img,
+        title: suggestData[current.id - 1].title,
+        artist: suggestData[current.id - 1].artist,
+        timeRemaining: suggestData[current.id - 1].duration,
         timeElapsed: '0:00',
-        trackLength: suggestData[state.id - 1].trackLength,
-        id: suggestData[state.id - 1].id,
-      });
+        trackLength: suggestData[current.id - 1].trackLength,
+        id: suggestData[current.id - 1].id,
+      }));
     } else {
-      setState({
+      dispatch(currentSong({
         img: suggestData[n - 1].img,
         title: suggestData[n - 1].title,
-        description: suggestData[n - 1].description,
+        artist: suggestData[n - 1].artist,
         timeRemaining: suggestData[n - 1].duration,
         timeElapsed: '0:00',
         trackLength: suggestData[n - 1].trackLength,
         id: suggestData[n - 1].id,
-      });
+      }));
     }
   }
 
@@ -160,22 +196,22 @@ function Player (props) {
         </View>
 
         <View style={styles.coverContainer}>
-          <Image source={state.img} style={styles.cover}></Image>
+          <Image source={current.img} style={styles.cover}></Image>
         </View>
 
         <View style={{alignItems: 'center', marginTop: 25}}>
           <Text style={[styles.textDark, {fontSize: 20, fontWeight: 'bold'}]}>
-            {state.title}
+            {current.title}
           </Text>
           <Text style={[styles.text, {fontSize: 16, marginTop: 5}]}>
-            {state.description}
+            {current.artist}
           </Text>
         </View>
 
         <View style={{margin: 25, marginTop: 15}}>
           <Slider
             minimumValue={0}
-            maximumValue={state.trackLength}
+            maximumValue={current.trackLength}
             trackStyle={styles.track}
             thumbStyle={styles.thumb}
             minimumTrackTintColor="#3b5998"
@@ -187,10 +223,10 @@ function Player (props) {
               justifyContent: 'space-between',
             }}>
             <Text style={[styles.textLight, styles.timeStamp]}>
-              {state.timeElapsed}
+              {current.timeElapsed}
             </Text>
             <Text style={[styles.textLight, styles.timeStamp]}>
-              {state.timeRemaining}
+              {current.timeRemaining}
             </Text>
           </View>
 
@@ -219,6 +255,7 @@ function Player (props) {
               style={styles.playButtonContainer}
               onPress={() => {
                 dispatch(setStatus(!status));
+                onPlayPauseTrack();
               }}>
               {renderPlayPausePlayer()}
             </TouchableOpacity>
