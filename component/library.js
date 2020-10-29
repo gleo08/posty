@@ -6,16 +6,31 @@ import {
     Animated,
     ScrollView,
     Image,
-    Dimensions
+    Dimensions,
+    StyleSheet,
+    Button,
 } from "react-native";
+import {FlatList} from 'react-native-gesture-handler';
+import { suggestData } from '../data/Data';
 import { connect } from "react-redux";
+import { setStatus } from '../action/status';
+import { currentSong } from '../action/current';
 
 const { width } = Dimensions.get("window");
+const index = Math.floor(Math.random() * 7);
 
 class Library extends React.Component {
     
+    playSong = () => {
+        props.navigation.navigate('Player');
+    }
+
+    separator = () => {
+        return <View style={{height: 10, backgroundColor: '#fff'}} />;
+    }
+
     componentDidMount() {
-        console.log(this.props.status);
+        console.log(index);
     }
 
     state = {
@@ -78,9 +93,10 @@ class Library extends React.Component {
         } = this.state;
         return (
             <View style={{ flex: 1 }}>
+                <Text style={styles.library}>Thư viện</Text>
                 <View
                     style={{
-                        width: "90%",
+                        width: "99%",
                         marginLeft: "auto",
                         marginRight: "auto"
                     }}
@@ -88,9 +104,9 @@ class Library extends React.Component {
                     <View
                         style={{
                             flexDirection: "row",
-                            marginTop: 40,
+                            marginTop: 5,
                             marginBottom: 20,
-                            height: 36,
+                            height: 33,
                             position: "relative"
                         }}
                     >
@@ -101,7 +117,7 @@ class Library extends React.Component {
                                 height: "100%",
                                 top: 0,
                                 left: 0,
-                                backgroundColor: "#007aff",
+                                backgroundColor: "#004400",
                                 borderRadius: 4,
                                 transform: [
                                     {
@@ -116,7 +132,7 @@ class Library extends React.Component {
                                 justifyContent: "center",
                                 alignItems: "center",
                                 borderWidth: 1,
-                                borderColor: "#007aff",
+                                borderColor: "#004400",
                                 borderRadius: 4,
                                 borderRightWidth: 0,
                                 borderTopRightRadius: 0,
@@ -135,10 +151,10 @@ class Library extends React.Component {
                         >
                             <Text
                                 style={{
-                                    color: active === 0 ? "#fff" : "#007aff"
+                                    color: active === 0 ? "#fff" : "#000"
                                 }}
                             >
-                                Tab One
+                                Bài hát
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -147,7 +163,7 @@ class Library extends React.Component {
                                 justifyContent: "center",
                                 alignItems: "center",
                                 borderWidth: 1,
-                                borderColor: "#007aff",
+                                borderColor: "#000",
                                 borderRadius: 4,
                                 borderLeftWidth: 0,
                                 borderTopLeftRadius: 0,
@@ -166,10 +182,10 @@ class Library extends React.Component {
                         >
                             <Text
                                 style={{
-                                    color: active === 1 ? "#fff" : "#007aff"
+                                    color: active === 1 ? "#fff" : "#000"
                                 }}
                             >
-                                Tab Two
+                                Playlist
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -177,8 +193,8 @@ class Library extends React.Component {
                     <ScrollView>
                         <Animated.View
                             style={{
-                                justifyContent: "center",
-                                alignItems: "center",
+                                // justifyContent: "center",
+                                // alignItems: "center",
                                 transform: [
                                     {
                                         translateX: translateXTabOne
@@ -191,14 +207,74 @@ class Library extends React.Component {
                                 })
                             }
                         >
-                            <Text>abc</Text>
-                            <View style={{ marginTop: 20 }}>
-                                <Image
-                                    source={require("../asset/circles.jpg")}
-                                    style={{
-                                        width: 30,
-                                        height: 30,
-                                        borderRadius: 15
+
+                            <View style={{ marginTop: 10}}>
+                                    <TouchableOpacity
+                                        style={{
+                                            flex: 1,
+                                            height: 40,
+                                            width: 120,
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            borderColor: "#000",
+                                            borderRadius: 100,
+                                            backgroundColor: "#004400",
+                                            left: 115,
+                                            elevation: 10,
+                                            top: -10,
+                                        }}
+                                        onPress={() => {
+                                            this.props.currentSong({
+                                                img: suggestData[index].img,
+                                                title: suggestData[index].title,
+                                                artist: suggestData[index].artist,
+                                                url: suggestData[index].url,
+                                                trackLength: suggestData[index].trackLength,
+                                                id: suggestData[index].id,
+                                                timeRemaining: suggestData[index].duration,
+                                            })          
+                                            playSong();
+                                        }}
+                                    >
+                                        <Text style={{color: 'white'}}>Phát bất kỳ</Text>
+                                    </TouchableOpacity>
+                                <FlatList style={{padding: 0, paddingTop: 0}}
+                                    data = {suggestData}
+                                    showsVerticalScrollIndicator={false}
+                                    ItemSeparatorComponent = {() => this.separator()}
+                                    renderItem = {({item, index}) => {
+                                        return (
+                                            <TouchableOpacity 
+                                            style={styles.songContainer}
+                                            onPress = {() => {
+                                                playSong();
+                                                this.props.setStatus(true);
+                                                this.props.currentSong(
+                                                    {
+                                                        img: item.img,   
+                                                        title: item.title,
+                                                        artist: item.artist,
+                                                        url: item.url,
+                                                        trackLength: item.trackLength,
+                                                        id: item.id,
+                                                        timeRemaining: item.duration,
+                                                    }
+                                                )
+                                                }}
+                                            >
+                                                <View style={{flexDirection: 'row'}}>
+                                                    <Image  
+                                                    source = {item.img}
+                                                    style = {styles.img}
+                                                />
+                                                    <View style={styles.dataContainer}>
+                                                        <Text style={styles.songTitle}>{item.title}</Text>
+                                                        <Text style={styles.artist}>{item.artist}</Text>
+                                                        <Text style={styles.duration}>{item.duration}</Text>
+                                                    </View>
+                                                </View>
+                                            </TouchableOpacity>
+                                        )
                                     }}
                                 />
                             </View>
@@ -239,7 +315,8 @@ class Library extends React.Component {
 
 const mapDispatchToProps = () => {
     return {
-        current,
+        setStatus: setStatus,
+        currentSong: currentSong,
     }
 }
 
@@ -249,4 +326,44 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default Library;
+const styles = StyleSheet.create({
+
+    library: {
+        fontWeight: 'bold',
+        fontSize: 22,
+        color: '#000',
+        margin: 10,
+        marginLeft: 10,
+    },
+    songContainer: {
+        width: width,
+        height: 70,
+        flexDirection: 'row',
+    }, 
+    img: {
+        height: 65,
+        width: 65,
+        borderRadius: 5,
+    },
+    dataContainer: {
+        paddingLeft: 10,
+        width: width - 70,
+    },
+    songTitle: {
+        fontSize: 16,
+        color: '#000'
+    },
+    artist: {
+        fontSize: 12,
+        color: 'gray',
+    },
+    duration: {
+        fontSize: 14,
+        color: 'gray',
+    },
+    button: {
+        color: "#004400",
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps())(Library);

@@ -19,9 +19,14 @@ function Home () {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Thư viện</Text>
+        <Text style={styles.title}>Cá nhân</Text>
         <Profile />
           <Library />
+        <Text></Text>
+        <Text></Text>
+        <Text></Text>
+        <Text></Text>
+        <Text></Text>
         <View style={styles.mini}>
           {renderMiniBar()}
         </View>
@@ -42,7 +47,7 @@ const styles = StyleSheet.create({
     fontSize: 27,
     color: '#000',
     margin: 10,
-    marginLeft: 15,
+    marginLeft: 10,
   },
 
 });
