@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {View, StyleSheet, Text, Image, SafeAreaView, StatusBar} from 'react-native';
-import Moment from 'moment';
 import Slider from 'react-native-slider';
 import Icon2 from 'react-native-vector-icons/Ionicons'
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -9,23 +8,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setStatus } from '../action/status';
 import { setShowing } from '../action/showing';
 import { currentSong } from '../action/current';
-import TrackPlayer from 'react-native-track-player';
+import TrackPlayer, {Capability, useProgress} from 'react-native-track-player';
 
 function Player (props) {
   const status = useSelector(state => state.status.playing);
   const current = useSelector(state => state.current);
 
-  // const track = { 
-  //   img: current.img,
-  //   title: current.title,
-  //   artist: current.artist,
-  //   url: current.url,
-  //   timeRemaining: current.timeRemaining,
-  //   trackLength: current.trackLength,
-  //   id: current.id,
-  // };
-
-  // console.log(track);
+  const {position, duration} = useProgress();
 
   const index = current.id;
   
@@ -47,9 +36,6 @@ function Player (props) {
 
       await TrackPlayer.play();
 
-      setTimeout(() => {
-        TrackPlayer.stop();
-      }, current.trackLength * 1000); 
     })();
   }, [index]);
 
@@ -74,9 +60,6 @@ function Player (props) {
         title: suggestData[current.id + 1].title,
         artist: suggestData[current.id+ 1].artist,
         url: suggestData[current.id + 1].url,
-        timeRemaining: suggestData[current.id + 1].duration,
-        timeElapsed: '0:00',
-        trackLength: suggestData[current.id + 1].trackLength,
         id: suggestData[current.id + 1].id,
       }));
     } else {
@@ -85,9 +68,6 @@ function Player (props) {
         title: suggestData[0].title,
         artist: suggestData[0].artist,
         url: suggestData[0].url,
-        timeRemaining: suggestData[0].duration,
-        timeElapsed: '0:00',
-        trackLength: suggestData[0].trackLength,
         id: suggestData[0].id,
       }));
     }
@@ -149,9 +129,6 @@ function Player (props) {
         title: suggestData[current.id - 1].title,
         artist: suggestData[current.id - 1].artist,
         url: suggestData[current.id  - 1].url,
-        timeRemaining: suggestData[current.id - 1].duration,
-        timeElapsed: '0:00',
-        trackLength: suggestData[current.id - 1].trackLength,
         id: suggestData[current.id - 1].id,
       }));
     } else {
@@ -160,9 +137,6 @@ function Player (props) {
         title: suggestData[n - 1].title,
         artist: suggestData[n - 1].artist,
         url: suggestData[n - 1].url,
-        timeRemaining: suggestData[n - 1].duration,
-        timeElapsed: '0:00',
-        trackLength: suggestData[n - 1].trackLength,
         id: suggestData[n - 1].id,
       }));
     }
@@ -174,13 +148,17 @@ function Player (props) {
     })
   }
 
-  changeTime = (seconds) => {
-    setState({timeElapsed: Moment.utc(seconds * 1000).format('m:ss')});
-    setState({
-      timeRemaining: Moment.utc(
-        (state.trackLength - seconds) * 1000,
-      ).format('m:ss'),
-    });
+  const formatTime = (secs) => {
+    let minutes = Math.floor(secs / 60);
+    let seconds = Math.ceil(secs - minutes * 60);
+
+    if (seconds < 10) seconds = `0${seconds}`;
+
+    return `${minutes}:${seconds}`;
+  };
+
+  const handleChange = (val) => {
+    TrackPlayer.seekTo(val);
   };
 
     return (
@@ -219,11 +197,14 @@ function Player (props) {
         <View style={{margin: 25, marginTop: 15}}>
           <Slider
             minimumValue={0}
-            maximumValue={current.trackLength}
+            value={position}
+            maximumValue={duration}
             trackStyle={styles.track}
             thumbStyle={styles.thumb}
             minimumTrackTintColor="#3b5998"
-            onValueChange={(seconds) => changeTime(seconds)}></Slider>
+            onSlidingComplete={handleChange}
+            >
+          </Slider>
           <View
             style={{
               marginTop: -12,
@@ -231,10 +212,10 @@ function Player (props) {
               justifyContent: 'space-between',
             }}>
             <Text style={[styles.textLight, styles.timeStamp]}>
-              {current.timeElapsed}
+              {formatTime(position)}
             </Text>
             <Text style={[styles.textLight, styles.timeStamp]}>
-              {current.timeRemaining}
+              {formatTime(duration)}
             </Text>
           </View>
 

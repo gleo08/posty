@@ -3,14 +3,7 @@ const initialState = {
     title: null,
     artist: null,
     url: null,
-    timeRemaining: null,
-    trackLength: null,
-    timeElapsed: '0:00',
     id: null,
-    // timeRemaining: null,
-    // timeElapsed: '0:00',
-    // trackLength: null,
-    // id: null,
 }
 
 const currentReducer = (state = initialState, action) => {
@@ -19,9 +12,6 @@ const currentReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.payload
-                // timeRemaining: action.payload,
-                // trackLength: action.payload,
-                // id: action.payload,
             };
         }
 

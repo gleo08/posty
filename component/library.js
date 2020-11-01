@@ -8,7 +8,6 @@ import {
     Image,
     Dimensions,
     StyleSheet,
-    Button,
 } from "react-native";
 import {FlatList} from 'react-native-gesture-handler';
 import { suggestData } from '../data/Data';
@@ -229,9 +228,7 @@ class Library extends React.Component {
                                                 title: suggestData[index].title,
                                                 artist: suggestData[index].artist,
                                                 url: suggestData[index].url,
-                                                trackLength: suggestData[index].trackLength,
                                                 id: suggestData[index].id,
-                                                timeRemaining: suggestData[index].duration,
                                             })          
                                             playSong();
                                         }}
@@ -255,9 +252,7 @@ class Library extends React.Component {
                                                         title: item.title,
                                                         artist: item.artist,
                                                         url: item.url,
-                                                        trackLength: item.trackLength,
                                                         id: item.id,
-                                                        timeRemaining: item.duration,
                                                     }
                                                 )
                                                 }}
@@ -270,7 +265,6 @@ class Library extends React.Component {
                                                     <View style={styles.dataContainer}>
                                                         <Text style={styles.songTitle}>{item.title}</Text>
                                                         <Text style={styles.artist}>{item.artist}</Text>
-                                                        <Text style={styles.duration}>{item.duration}</Text>
                                                     </View>
                                                 </View>
                                             </TouchableOpacity>
@@ -348,6 +342,7 @@ const styles = StyleSheet.create({
     dataContainer: {
         paddingLeft: 10,
         width: width - 70,
+        bottom: -10,
     },
     songTitle: {
         fontSize: 16,
@@ -355,10 +350,6 @@ const styles = StyleSheet.create({
     },
     artist: {
         fontSize: 12,
-        color: 'gray',
-    },
-    duration: {
-        fontSize: 14,
         color: 'gray',
     },
     button: {

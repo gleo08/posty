@@ -36,9 +36,7 @@ function Suggestion (props) {
                       title: item.title,
                       artist: item.artist,
                       url: item.url,
-                      trackLength: item.trackLength,
                       id: item.id,
-                      timeRemaining: item.duration,
                     }
                   ));
                 }}
