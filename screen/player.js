@@ -8,13 +8,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setStatus } from '../action/status';
 import { setShowing } from '../action/showing';
 import { currentSong } from '../action/current';
-import TrackPlayer, {Capability, useProgress} from 'react-native-track-player';
+import TrackPlayer, {useProgress} from 'react-native-track-player';
 
 function Player (props) {
   const status = useSelector(state => state.status.playing);
   const current = useSelector(state => state.current);
 
   const {position, duration} = useProgress();
+  // console.log(position);
+  // console.log(duration);
 
   const index = current.id;
   
@@ -27,14 +29,10 @@ function Player (props) {
 
   useEffect(() => {
     (async () => {
-      await TrackPlayer.setupPlayer().then(() => {
-        console.log('player is setup');
-      });
-      await TrackPlayer.reset();
-
       await TrackPlayer.add([current]);
-
-      await TrackPlayer.play();
+      if (status === true) {
+        await TrackPlayer.play();
+      }
 
     })();
   }, [index]);
@@ -74,9 +72,6 @@ function Player (props) {
     dispatch(setStatus(true));
     TrackPlayer.reset();
     console.log(current);
-    TrackPlayer.add(current).then(() => {
-      TrackPlayer.play();
-    })
   }
 
   renderPlayPausePlayer = () => {
@@ -143,9 +138,6 @@ function Player (props) {
     dispatch(setStatus(true));
     TrackPlayer.reset();
     console.log(current);
-    TrackPlayer.add(current).then(() => {
-      TrackPlayer.play();
-    })
   }
 
   const formatTime = (secs) => {

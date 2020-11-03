@@ -3,7 +3,8 @@ import {View, StyleSheet, Text, Dimensions, Image} from 'react-native';
 import { FlatList, TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useDispatch } from 'react-redux';
 import { setStatus } from '../action/status';
-import { suggestData } from '../data/Data'
+import { suggestData } from '../data/Data';
+import TrackPlayer from 'react-native-track-player';
 
 const {width, height} = Dimensions.get('window')
 
@@ -15,10 +16,10 @@ function Trending (props) {
         return <View style={{height: 10, backgroundColor: '#fff'}} />;
     }
 
-    playSong = item => {
-        dispatch(setStatus(true))
-        props.navigation.navigate('Player', {item: item});
-    }
+    playSong = () => {
+      props.navigation.navigate('Player');
+      TrackPlayer.reset();
+    };
         return (
           <View style={styles.container}>
             <Text style={styles.title}>Top thịnh hành</Text>
@@ -28,22 +29,32 @@ function Trending (props) {
                     ItemSeparatorComponent = {() => this.separator()}
                     renderItem = {({item, index}) => {
                         return (
-                            <TouchableOpacity 
+                          <TouchableOpacity
                             style={styles.songContainer}
-                            onPress = {() => playSong(item)} 
-                            >
-                                <View style={{flexDirection: 'row'}}>
-                                    <Image  
-                                        source = {item.img}
-                                        style = {styles.img}
-                                    />
-                                    <View style={styles.dataContainer}>
-                                        <Text style={styles.songTitle}>{item.title}</Text>
-                                        <Text style={styles.artist}>{item.artist}</Text>
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
-                        )
+                            onPress={() => {
+                              playSong();
+                              dispatch(setStatus(true));
+                              dispatch(
+                                currentSong({
+                                  img: item.img,
+                                  title: item.title,
+                                  artist: item.artist,
+                                  url: item.url,
+                                  id: item.id,
+                                }),
+                              );
+                            }}>
+                            <View style={{flexDirection: 'row'}}>
+                              <Image source={item.img} style={styles.img} />
+                              <View style={styles.dataContainer}>
+                                <Text style={styles.songTitle}>
+                                  {item.title}
+                                </Text>
+                                <Text style={styles.artist}>{item.artist}</Text>
+                              </View>
+                            </View>
+                          </TouchableOpacity>
+                        );
                     }}
                 />
             </View>

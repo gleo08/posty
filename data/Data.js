@@ -12,9 +12,9 @@ export const dummyData = [
     id: 2,
   },
   {
-    title: 'Bông hoa đẹp nhất',
-    img: require('../asset/ap.jpg'),
-    artist: 'Quân A.P.',
+    title: 'Sunflower',
+    img: require('../asset/sunflower.jpg'),
+    artist: 'Swae Lee',
     id: 3,
   },
 ];
@@ -82,5 +82,26 @@ export const suggestData = [
     url: 'https://samplesongs.netlify.app/Death%20Bed.mp3',
     trackLength: 185,
     id: 6,
+  },
+];
+
+export const playlistData = [
+  {
+    name: 'Circles',
+    img: require('../asset/circles.jpg'),
+    artist: 'Post Malone.',
+    id: 1,
+  },
+  {
+    name: 'Blinding Light',
+    img: require('../asset/blinding_light.jpg'),
+    artist: 'The Weeknd.',
+    id: 2,
+  },
+  {
+    name: 'Bông hoa đẹp nhất',
+    img: require('../asset/ap.jpg'),
+    artist: 'Quân A.P.',
+    id: 3,
   },
 ];

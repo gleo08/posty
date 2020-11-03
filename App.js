@@ -14,6 +14,7 @@ import Tabs from './config/index';
 import { NavigationContainer } from '@react-navigation/native';
 import Splash from './component/splash';
 import Player from './screen/player';
+import MiniBar from './component/minibar';
 
 const Stack = createStackNavigator();
 

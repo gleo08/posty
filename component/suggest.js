@@ -6,6 +6,7 @@ import {Surface} from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import { setStatus } from '../action/status';
 import { currentSong } from '../action/current';
+import TrackPlayer from 'react-native-track-player';
 
 const {width} = Dimensions.get('window');
 
@@ -15,6 +16,7 @@ function Suggestion (props) {
 
   playSong = () => {
     props.navigation.navigate('Player');
+    TrackPlayer.reset();
   };
 
     return (

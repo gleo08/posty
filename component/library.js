@@ -14,6 +14,7 @@ import { suggestData } from '../data/Data';
 import { connect } from "react-redux";
 import { setStatus } from '../action/status';
 import { currentSong } from '../action/current';
+import TrackPlayer from 'react-native-track-player';
 
 const { width } = Dimensions.get("window");
 const index = Math.floor(Math.random() * 7);
@@ -22,6 +23,7 @@ class Library extends React.Component {
     
     playSong = () => {
         props.navigation.navigate('Player');
+        TrackPlayer.reset();
     }
 
     separator = () => {
@@ -91,218 +93,200 @@ class Library extends React.Component {
             translateY
         } = this.state;
         return (
-            <View style={{ flex: 1 }}>
-                <Text style={styles.library}>Thư viện</Text>
-                <View
+          <View style={{flex: 1}}>
+            <View
+              style={{
+                width: '99%',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  marginTop: 5,
+                  marginBottom: 20,
+                  height: 33,
+                  position: 'relative',
+                }}>
+                <Animated.View
+                  style={{
+                    position: 'absolute',
+                    width: '50%',
+                    height: '100%',
+                    top: 0,
+                    left: 0,
+                    backgroundColor: '#0099FF',
+                    borderRadius: 4,
+                    transform: [
+                      {
+                        translateX,
+                      },
+                    ],
+                  }}
+                />
+                <TouchableOpacity
+                  style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderWidth: 1,
+                    borderColor: '#663366',
+                    borderRadius: 4,
+                    borderRightWidth: 0,
+                    borderTopRightRadius: 0,
+                    borderBottomRightRadius: 0,
+                  }}
+                  onLayout={(event) =>
+                    this.setState({
+                      xTabOne: event.nativeEvent.layout.x,
+                    })
+                  }
+                  onPress={() =>
+                    this.setState({active: 0}, () => this.handleSlide(xTabOne))
+                  }>
+                  <Text
                     style={{
-                        width: "99%",
-                        marginLeft: "auto",
-                        marginRight: "auto"
-                    }}
-                >
-                    <View
-                        style={{
-                            flexDirection: "row",
-                            marginTop: 5,
-                            marginBottom: 20,
-                            height: 33,
-                            position: "relative"
-                        }}
-                    >
-                        <Animated.View
-                            style={{
-                                position: "absolute",
-                                width: "50%",
-                                height: "100%",
-                                top: 0,
-                                left: 0,
-                                backgroundColor: "#004400",
-                                borderRadius: 4,
-                                transform: [
-                                    {
-                                        translateX
-                                    }
-                                ]
-                            }}
-                        />
-                        <TouchableOpacity
-                            style={{
-                                flex: 1,
-                                justifyContent: "center",
-                                alignItems: "center",
-                                borderWidth: 1,
-                                borderColor: "#004400",
-                                borderRadius: 4,
-                                borderRightWidth: 0,
-                                borderTopRightRadius: 0,
-                                borderBottomRightRadius: 0
-                            }}
-                            onLayout={event =>
-                                this.setState({
-                                    xTabOne: event.nativeEvent.layout.x
-                                })
-                            }
-                            onPress={() =>
-                                this.setState({ active: 0 }, () =>
-                                    this.handleSlide(xTabOne)
-                                )
-                            }
-                        >
-                            <Text
-                                style={{
-                                    color: active === 0 ? "#fff" : "#000"
-                                }}
-                            >
-                                Bài hát
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={{
-                                flex: 1,
-                                justifyContent: "center",
-                                alignItems: "center",
-                                borderWidth: 1,
-                                borderColor: "#000",
-                                borderRadius: 4,
-                                borderLeftWidth: 0,
-                                borderTopLeftRadius: 0,
-                                borderBottomLeftRadius: 0
-                            }}
-                            onLayout={event =>
-                                this.setState({
-                                    xTabTwo: event.nativeEvent.layout.x
-                                })
-                            }
-                            onPress={() =>
-                                this.setState({ active: 1 }, () =>
-                                    this.handleSlide(xTabTwo)
-                                )
-                            }
-                        >
-                            <Text
-                                style={{
-                                    color: active === 1 ? "#fff" : "#000"
-                                }}
-                            >
-                                Playlist
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
+                      color: active === 0 ? '#fff' : '#000',
+                    }}>
+                    Bài hát
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderWidth: 1,
+                    borderColor: '#000',
+                    borderRadius: 4,
+                    borderLeftWidth: 0,
+                    borderTopLeftRadius: 0,
+                    borderBottomLeftRadius: 0,
+                  }}
+                  onLayout={(event) =>
+                    this.setState({
+                      xTabTwo: event.nativeEvent.layout.x,
+                    })
+                  }
+                  onPress={() =>
+                    this.setState({active: 1}, () => this.handleSlide(xTabTwo))
+                  }>
+                  <Text
+                    style={{
+                      color: active === 1 ? '#fff' : '#000',
+                    }}>
+                    Playlist
+                  </Text>
+                </TouchableOpacity>
+              </View>
 
-                    <ScrollView>
-                        <Animated.View
-                            style={{
-                                // justifyContent: "center",
-                                // alignItems: "center",
-                                transform: [
-                                    {
-                                        translateX: translateXTabOne
-                                    }
-                                ]
-                            }}
-                            onLayout={event =>
-                                this.setState({
-                                    translateY: event.nativeEvent.layout.height
-                                })
-                            }
-                        >
-
-                            <View style={{ marginTop: 10}}>
-                                    <TouchableOpacity
-                                        style={{
-                                            flex: 1,
-                                            height: 40,
-                                            width: 120,
-                                            justifyContent: "center",
-                                            alignItems: "center",
-                                            borderColor: "#000",
-                                            borderRadius: 100,
-                                            backgroundColor: "#004400",
-                                            left: 115,
-                                            elevation: 10,
-                                            top: -10,
-                                        }}
-                                        onPress={() => {
-                                            this.props.currentSong({
-                                                img: suggestData[index].img,
-                                                title: suggestData[index].title,
-                                                artist: suggestData[index].artist,
-                                                url: suggestData[index].url,
-                                                id: suggestData[index].id,
-                                            })          
-                                            playSong();
-                                        }}
-                                    >
-                                        <Text style={{color: 'white'}}>Phát bất kỳ</Text>
-                                    </TouchableOpacity>
-                                <FlatList style={{padding: 0, paddingTop: 0}}
-                                    data = {suggestData}
-                                    showsVerticalScrollIndicator={false}
-                                    ItemSeparatorComponent = {() => this.separator()}
-                                    renderItem = {({item, index}) => {
-                                        return (
-                                            <TouchableOpacity 
-                                            style={styles.songContainer}
-                                            onPress = {() => {
-                                                playSong();
-                                                this.props.setStatus(true);
-                                                this.props.currentSong(
-                                                    {
-                                                        img: item.img,   
-                                                        title: item.title,
-                                                        artist: item.artist,
-                                                        url: item.url,
-                                                        id: item.id,
-                                                    }
-                                                )
-                                                }}
-                                            >
-                                                <View style={{flexDirection: 'row'}}>
-                                                    <Image  
-                                                    source = {item.img}
-                                                    style = {styles.img}
-                                                />
-                                                    <View style={styles.dataContainer}>
-                                                        <Text style={styles.songTitle}>{item.title}</Text>
-                                                        <Text style={styles.artist}>{item.artist}</Text>
-                                                    </View>
-                                                </View>
-                                            </TouchableOpacity>
-                                        )
-                                    }}
-                                />
+              <ScrollView>
+                <Animated.View
+                  style={{
+                    // justifyContent: "center",
+                    // alignItems: "center",
+                    transform: [
+                      {
+                        translateX: translateXTabOne,
+                      },
+                    ],
+                  }}
+                  onLayout={(event) =>
+                    this.setState({
+                      translateY: event.nativeEvent.layout.height,
+                    })
+                  }>
+                  <View style={{marginTop: 10}}>
+                    <TouchableOpacity
+                      style={{
+                        flex: 1,
+                        height: 40,
+                        width: 120,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderColor: '#000',
+                        borderRadius: 100,
+                        backgroundColor: '#0099FF',
+                        left: 115,
+                        elevation: 10,
+                        top: -10,
+                      }}
+                      onPress={() => {
+                        this.props.currentSong({
+                          img: suggestData[index].img,
+                          title: suggestData[index].title,
+                          artist: suggestData[index].artist,
+                          url: suggestData[index].url,
+                          id: suggestData[index].id,
+                        });
+                        playSong();
+                      }}>
+                      <Text style={{color: 'white'}}>Phát bất kỳ</Text>
+                    </TouchableOpacity>
+                    <FlatList
+                      style={{padding: 0, paddingTop: 0}}
+                      data={suggestData}
+                      showsVerticalScrollIndicator={false}
+                      ItemSeparatorComponent={() => this.separator()}
+                      renderItem={({item, index}) => {
+                        return (
+                          <TouchableOpacity
+                            style={styles.songContainer}
+                            onPress={() => {
+                              playSong();
+                              this.props.setStatus(true);
+                              this.props.currentSong({
+                                img: item.img,
+                                title: item.title,
+                                artist: item.artist,
+                                url: item.url,
+                                id: item.id,
+                              });
+                            }}>
+                            <View style={{flexDirection: 'row'}}>
+                              <Image source={item.img} style={styles.img} />
+                              <View style={styles.dataContainer}>
+                                <Text style={styles.songTitle}>
+                                  {item.title}
+                                </Text>
+                                <Text style={styles.artist}>{item.artist}</Text>
+                              </View>
                             </View>
-                        </Animated.View>
+                          </TouchableOpacity>
+                        );
+                      }}
+                    />
+                  </View>
+                </Animated.View>
 
-                        <Animated.View
-                            style={{
-                                justifyContent: "center",
-                                alignItems: "center",
-                                transform: [
-                                    {
-                                        translateX: translateXTabTwo
-                                    },
-                                    {
-                                        translateY: -translateY
-                                    }
-                                ]
-                            }}
-                        >
-                            <Text>abc</Text>
-                            <View style={{ marginTop: 20 }}>
-                                <Image
-                                    source={require("../asset/circles2.jpg")}
-                                    style={{
-                                        width: 30,
-                                        height: 30,
-                                        borderRadius: 15
-                                    }}
-                                />
-                            </View>
-                        </Animated.View>
-                    </ScrollView>
-                </View>
+                <Animated.View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    transform: [
+                      {
+                        translateX: translateXTabTwo,
+                      },
+                      {
+                        translateY: -translateY,
+                      },
+                    ],
+                  }}>
+                  <Text>abc</Text>
+                  <View style={{marginTop: 20}}>
+                    <Image
+                      source={require('../asset/circles2.jpg')}
+                      style={{
+                        width: 30,
+                        height: 30,
+                        borderRadius: 15,
+                      }}
+                    />
+                  </View>
+                </Animated.View>
+              </ScrollView>
             </View>
+          </View>
         );
     }
 }
@@ -353,7 +337,7 @@ const styles = StyleSheet.create({
         color: 'gray',
     },
     button: {
-        color: "#004400",
+        color: "#663366",
     }
 });
 
