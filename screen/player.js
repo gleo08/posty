@@ -15,8 +15,6 @@ function Player (props) {
   const current = useSelector(state => state.current);
 
   const {position, duration} = useProgress();
-  // console.log(position);
-  // console.log(duration);
 
   const index = current.id;
   
@@ -33,7 +31,6 @@ function Player (props) {
       if (status === true) {
         await TrackPlayer.play();
       }
-
     })();
   }, [index]);
 
@@ -83,8 +80,7 @@ function Player (props) {
   }
 
   renderShuffle = () => {
-    let shuffle = state.shuffle;
-    return shuffle == false ? (
+    return state.shuffle == true ? (
       <Icon2
         name="shuffle-outline"
         size={28}
@@ -100,8 +96,7 @@ function Player (props) {
   }
 
   renderRepeat = () => {
-    let repeat = state.repeat;
-    return repeat == false ? (
+    return state.repeat == true ? (
       <Icon2
         name="repeat-outline"
         size={28}
@@ -220,8 +215,8 @@ function Player (props) {
             }}>
             <TouchableOpacity
               onPress={() => {
-                shuffle = state.shuffle;
-                setState({shuffle: !shuffle});
+                s = state.shuffle;
+                setState({shuffle: !s});
               }}>
               {renderShuffle()}
             </TouchableOpacity>
@@ -249,8 +244,8 @@ function Player (props) {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                repeat = state.repeat;
-                setState({repeat: !repeat});
+                r = state.repeat;
+                setState({repeat: !r});
               }}>
               {renderRepeat()}
             </TouchableOpacity>

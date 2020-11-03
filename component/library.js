@@ -10,6 +10,7 @@ import {
     StyleSheet,
 } from "react-native";
 import {FlatList} from 'react-native-gesture-handler';
+import Icon2 from 'react-native-vector-icons/Ionicons';
 import { suggestData } from '../data/Data';
 import { connect } from "react-redux";
 import { setStatus } from '../action/status';
@@ -27,7 +28,7 @@ class Library extends React.Component {
     }
 
     separator = () => {
-        return <View style={{height: 10, backgroundColor: '#fff'}} />;
+        return <View style={{height: 7, backgroundColor: '#fff'}} />;
     }
 
     componentDidMount() {
@@ -104,7 +105,7 @@ class Library extends React.Component {
                 style={{
                   flexDirection: 'row',
                   marginTop: 5,
-                  marginBottom: 20,
+                  marginBottom: 11,
                   height: 33,
                   position: 'relative',
                 }}>
@@ -115,7 +116,7 @@ class Library extends React.Component {
                     height: '100%',
                     top: 0,
                     left: 0,
-                    backgroundColor: '#0099FF',
+                    backgroundColor: '#000000',
                     borderRadius: 4,
                     transform: [
                       {
@@ -130,7 +131,7 @@ class Library extends React.Component {
                     justifyContent: 'center',
                     alignItems: 'center',
                     borderWidth: 1,
-                    borderColor: '#663366',
+                    borderColor: '#000',
                     borderRadius: 4,
                     borderRightWidth: 0,
                     borderTopRightRadius: 0,
@@ -202,16 +203,18 @@ class Library extends React.Component {
                         flex: 1,
                         height: 40,
                         width: 120,
+                        flexDirection: 'row',
                         justifyContent: 'center',
                         alignItems: 'center',
                         borderColor: '#000',
                         borderRadius: 100,
-                        backgroundColor: '#0099FF',
+                        backgroundColor: '#000000',
                         left: 115,
                         elevation: 10,
-                        top: -10,
+                        bottom: 10,
                       }}
                       onPress={() => {
+                        this.props.setStatus(true)
                         this.props.currentSong({
                           img: suggestData[index].img,
                           title: suggestData[index].title,
@@ -221,7 +224,13 @@ class Library extends React.Component {
                         });
                         playSong();
                       }}>
-                      <Text style={{color: 'white'}}>Phát bất kỳ</Text>
+                      <Icon2
+                        name="shuffle-outline"
+                        size={18}
+                        color="#fff"
+                        style={{top: 1}}
+                        ></Icon2>
+                      <Text style={{color: 'white'}}>  Phát bất kỳ </Text>
                     </TouchableOpacity>
                     <FlatList
                       style={{padding: 0, paddingTop: 0}}
