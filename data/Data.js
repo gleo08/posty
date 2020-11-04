@@ -87,21 +87,18 @@ export const suggestData = [
 
 export const playlistData = [
   {
-    name: 'Circles',
+    name: 'Posty',
     img: require('../asset/circles.jpg'),
-    artist: 'Post Malone.',
     id: 1,
   },
   {
-    name: 'Blinding Light',
+    name: 'Chill',
     img: require('../asset/blinding_light.jpg'),
-    artist: 'The Weeknd.',
     id: 2,
   },
   {
-    name: 'Bông hoa đẹp nhất',
+    name: 'MCK',
     img: require('../asset/ap.jpg'),
-    artist: 'Quân A.P.',
     id: 3,
   },
 ];

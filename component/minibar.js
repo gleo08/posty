@@ -30,7 +30,6 @@ function MiniBar(props) {
   };
 
   onMiniBarPress = () => {
-    // dispatch(setStatus(true));
     navigation.navigate("Player");
   };
 
@@ -48,10 +47,6 @@ function MiniBar(props) {
       <Icon2 name="play-outline" size={23}></Icon2>
     );
   };
-
-  // skipEvent = (event) => {
-  //   event.stopPropagation();
-  // }
 
   return (
     <TouchableWithoutFeedback
