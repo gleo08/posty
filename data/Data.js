@@ -88,17 +88,17 @@ export const suggestData = [
 export const playlistData = [
   {
     name: 'Posty',
-    img: require('../asset/circles.jpg'),
+    img: require('../asset/playlist3.jpg'),
     id: 1,
   },
   {
     name: 'Chill',
-    img: require('../asset/blinding_light.jpg'),
+    img: require('../asset/playlist3.jpg'),
     id: 2,
   },
   {
     name: 'MCK',
-    img: require('../asset/ap.jpg'),
+    img: require('../asset/playlist3.jpg'),
     id: 3,
   },
 ];

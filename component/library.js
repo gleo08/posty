@@ -12,13 +12,13 @@ import {
 import {FlatList} from 'react-native-gesture-handler';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import {suggestData} from '../data/Data';
-import {playlistData} from '../data/Data';
 import {connect} from 'react-redux';
 import {setStatus} from '../action/status';
 import {currentSong} from '../action/current';
 import TrackPlayer from 'react-native-track-player';
+import Playlist from './playlist';
 
-const {width} = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 const index = Math.floor(Math.random() * 7);
 
 class Library extends React.Component {
@@ -30,10 +30,6 @@ class Library extends React.Component {
   separator = () => {
     return <View style={{height: 7, backgroundColor: '#fff'}} />;
   };
-
-  componentDidMount() {
-    console.log(index);
-  }
 
   state = {
     active: 0,
@@ -181,7 +177,7 @@ class Library extends React.Component {
             </TouchableOpacity>
           </View>
 
-          <ScrollView>
+          <ScrollView style={{height: height + 250}}>
             <Animated.View
               style={{
                 // justifyContent: "center",
@@ -231,37 +227,37 @@ class Library extends React.Component {
                     style={{top: 1}}></Icon2>
                   <Text style={{color: 'white'}}> Phát bất kỳ </Text>
                 </TouchableOpacity>
-                <FlatList
-                  style={{padding: 0, paddingTop: 0}}
-                  data={suggestData}
-                  showsVerticalScrollIndicator={false}
-                  ItemSeparatorComponent={() => this.separator()}
-                  renderItem={({item, index}) => {
-                    return (
-                      <TouchableOpacity
-                        style={styles.songContainer}
-                        onPress={() => {
-                          playSong();
-                          this.props.setStatus(true);
-                          this.props.currentSong({
-                            img: item.img,
-                            title: item.title,
-                            artist: item.artist,
-                            url: item.url,
-                            id: item.id,
-                          });
-                        }}>
-                        <View style={{flexDirection: 'row'}}>
-                          <Image source={item.img} style={styles.img} />
-                          <View style={styles.dataContainer}>
-                            <Text style={styles.songTitle}>{item.title}</Text>
-                            <Text style={styles.artist}>{item.artist}</Text>
+                  <FlatList
+                    style={{padding: 0, paddingTop: 0}}
+                    data={suggestData}
+                    showsVerticalScrollIndicator={false}
+                    ItemSeparatorComponent={() => this.separator()}
+                    renderItem={({item, index}) => {
+                      return (
+                        <TouchableOpacity
+                          style={styles.songContainer}
+                          onPress={() => {
+                            playSong();
+                            this.props.setStatus(true);
+                            this.props.currentSong({
+                              img: item.img,
+                              title: item.title,
+                              artist: item.artist,
+                              url: item.url,
+                              id: item.id,
+                            });
+                          }}>
+                          <View style={{flexDirection: 'row'}}>
+                            <Image source={item.img} style={styles.img} />
+                            <View style={styles.dataContainer}>
+                              <Text style={styles.songTitle}>{item.title}</Text>
+                              <Text style={styles.artist}>{item.artist}</Text>
+                            </View>
                           </View>
-                        </View>
-                      </TouchableOpacity>
-                    );
-                  }}
-                />
+                        </TouchableOpacity>
+                      );
+                    }}
+                  />
               </View>
             </Animated.View>
 
@@ -277,37 +273,7 @@ class Library extends React.Component {
                 ],
               }}>
               <View style={{marginTop: 20}}>
-                <FlatList
-                  style={{padding: 0, paddingTop: 0}}
-                  data={playlistData}
-                  showsVerticalScrollIndicator={false}
-                  ItemSeparatorComponent={() => this.separator()}
-                  renderItem={({item, index}) => {
-                    return (
-                      <TouchableOpacity
-                        style={styles.songContainer}
-                        onPress={() => {
-                          // playSong();
-                          // this.props.setStatus(true);
-                          // this.props.currentSong({
-                          //   img: item.img,
-                          //   title: item.title,
-                          //   artist: item.artist,
-                          //   url: item.url,
-                          //   id: item.id,
-                          // });
-                        }}>
-                        <View style={{flexDirection: 'row'}}>
-                          <Image source={item.img} style={styles.img} />
-                          <View style={styles.dataContainer}>
-                            <Text style={styles.songTitle}>{item.name}</Text>
-                          </View>
-                        </View>
-                      </TouchableOpacity>
-                    );
-                  }}
-                />
-                <Text style={styles.suggestPlaylist}>Playlist gợi ý</Text>
+                <Playlist />
               </View>
             </Animated.View>
           </ScrollView>
@@ -360,11 +326,6 @@ const styles = StyleSheet.create({
   artist: {
     fontSize: 12,
     color: 'gray',
-  },
-  suggestPlaylist: {
-    fontWeight: 'bold',
-    fontSize: 22,
-    color: '#000',
   },
 });
 
