@@ -31,7 +31,6 @@ function Tabs() {
               name={focused ? 'musical-notes-outline' : 'musical-notes-outline'}
               size={28}
               color={color}
-              label
             />
           ),
         }}

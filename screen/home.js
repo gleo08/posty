@@ -4,7 +4,7 @@ import MiniBar from '../component/minibar';
 import { useSelector } from 'react-redux';
 import Library from '../component/library';
 
-function Home () {
+function Home (props) {
 
   const showing = useSelector(state => state.showing.showing);
 
@@ -20,7 +20,7 @@ function Home () {
       <View style={styles.container}>
         <Text style={styles.title}>Cá nhân</Text>
         {/* <Profile /> */}
-        <Library />
+        <Library navigation={props.navigation}/>
         {/* <Text></Text>
         <Text></Text>
         <Text></Text>

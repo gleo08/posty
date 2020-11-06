@@ -14,9 +14,13 @@ import {playlistData} from '../data/Data';
 import AddModal from './addModal';
 
 const {width} = Dimensions.get('window');
+
 class Playlist extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      key: null,
+    };
     this.onAddPress = this.onAddPress.bind(this);
   }
 
@@ -27,6 +31,18 @@ class Playlist extends Component {
   onAddPress() {
     this.refs.addModal.showAddModal();
   }
+
+  onPlaylistPress() {
+    this.props.navigation.navigate('Songs');
+  }
+
+  refreshFlatList = (key) => {
+    this.setState((prevState) => {
+      return {
+        key: key,
+      };
+    });
+  };
 
   render() {
     return (
@@ -60,7 +76,11 @@ class Playlist extends Component {
           ItemSeparatorComponent={() => this.separator()}
           renderItem={({item, index}) => {
             return (
-              <TouchableOpacity style={styles.songContainer} onPress={() => {}}>
+              <TouchableOpacity
+                style={styles.songContainer}
+                onPress={() => {
+                  this.onPlaylistPress();
+                }}>
                 <View style={{flexDirection: 'row'}}>
                   <View style={{}}>
                     <Image source={item.img} style={styles.img} />

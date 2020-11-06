@@ -215,7 +215,7 @@ function Player (props) {
             }}>
             <TouchableOpacity
               onPress={() => {
-                s = state.shuffle;
+                let s = state.shuffle;
                 setState({shuffle: !s});
               }}>
               {renderShuffle()}
@@ -244,7 +244,7 @@ function Player (props) {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                r = state.repeat;
+                let r = state.repeat;
                 setState({repeat: !r});
               }}>
               {renderRepeat()}

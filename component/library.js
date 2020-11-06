@@ -22,6 +22,11 @@ const {width, height} = Dimensions.get('window');
 const index = Math.floor(Math.random() * 7);
 
 class Library extends React.Component {
+
+  constructor(props) {
+    super(props);
+  }
+
   playSong = () => {
     props.navigation.navigate('Player');
     TrackPlayer.reset();
@@ -273,7 +278,7 @@ class Library extends React.Component {
                 ],
               }}>
               <View style={{marginTop: 20}}>
-                <Playlist />
+                <Playlist navigation={this.props.navigation}/>
               </View>
             </Animated.View>
           </ScrollView>

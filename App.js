@@ -14,7 +14,7 @@ import Tabs from './config/index';
 import { NavigationContainer } from '@react-navigation/native';
 import Splash from './component/splash';
 import Player from './screen/player';
-import MiniBar from './component/minibar';
+import Songs from './component/songs';
 
 const Stack = createStackNavigator();
 
@@ -38,6 +38,13 @@ function Stacks() {
       <Stack.Screen
         name="Player"
         component={Player}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Songs"
+        component={Songs}
         options={{
           headerShown: false,
         }}

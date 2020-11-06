@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, Dimensions, Image} from 'react-native';
-import { FlatList, TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Dimensions,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
+import { FlatList} from 'react-native-gesture-handler';
 import { useDispatch } from 'react-redux';
 import { setStatus } from '../action/status';
 import { suggestData } from '../data/Data';
