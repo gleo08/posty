@@ -1,11 +1,16 @@
 import React from 'react';
-import {View, Text, StyleSheet, StatusBar} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  TouchableOpacity,
+} from 'react-native';
 import Carousel from '../component/carousel';
 import {dummyData} from '../data/Data';
-import {
-  ScrollView,
-} from 'react-native-gesture-handler';
+import {ScrollView} from 'react-native-gesture-handler';
 import Suggestion from '../component/suggest';
+import Icon2 from 'react-native-vector-icons/Ionicons';
 import Trending from '../component/trending';
 import MiniBar from '../component/minibar';
 import {useSelector} from 'react-redux';
@@ -17,11 +22,24 @@ function Discover(props) {
     return showing == true ? <MiniBar /> : null;
   };
 
+  search = () => {
+    props.navigation.navigate("Search");
+  }
+
   console.disableYellowBox = true;
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-      <Text style={styles.title}>Khám phá </Text>
+      <View style={styles.header}>
+        <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+        <Text style={styles.title}>Khám phá </Text>
+        <TouchableOpacity
+          style={styles.icon}
+          onPress={() => {
+            search();
+          }}>
+          <Icon2 name="search-outline" size={23} color="black"></Icon2>
+        </TouchableOpacity>
+      </View>
       <ScrollView>
         <Carousel navigation={props.navigation} data={dummyData} />
         <Suggestion navigation={props.navigation} />
@@ -48,5 +66,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  icon: {
+    height: 40,
+    width: 40,
+    backgroundColor: '#EEEEEE',
+    left: -10,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 5,
   },
 });

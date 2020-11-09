@@ -15,6 +15,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Splash from './component/splash';
 import Player from './screen/player';
 import Songs from './component/songs';
+import Search from './screen/search';
 
 const Stack = createStackNavigator();
 
@@ -45,6 +46,13 @@ function Stacks() {
       <Stack.Screen
         name="Songs"
         component={Songs}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Search"
+        component={Search}
         options={{
           headerShown: false,
         }}

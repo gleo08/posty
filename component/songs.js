@@ -11,8 +11,13 @@ import {
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {suggestData} from '../data/Data';
+import TrackPlayer from 'react-native-track-player';
+import {connect} from 'react-redux';
+import {setStatus} from '../action/status';
+import {currentSong} from '../action/current';
 
 const {width} = Dimensions.get('window');
+const index = Math.floor(Math.random() * 7);
 
 class Songs extends React.Component {
   constructor(props) {
@@ -26,6 +31,11 @@ class Songs extends React.Component {
   separator = () => {
     return <View style={{height: 7, backgroundColor: '#fff'}} />;
   };
+
+  playSong = () => {
+    this.props.navigation.navigate('Player');
+    TrackPlayer.reset();
+  }
 
   render() {
     return (
@@ -73,7 +83,20 @@ class Songs extends React.Component {
               justifyContent: 'center',
               marginLeft: 'auto',
               marginRight: 'auto',
-            }}>
+            }}
+            onPress = {() => {
+              this.props.setStatus(true)
+              this.props.currentSong({
+                img: suggestData[index].img,
+                title: suggestData[index].title,
+                artist: suggestData[index].artist,
+                url: suggestData[index].url,
+                id: suggestData[index].id,
+              });
+              this.playSong();
+            }}
+            
+            >
             <Icon2 name="shuffle-outline" size={24} color="#fff"></Icon2>
             <Text style={{color: '#fff', fontSize: 18, top: -1}}>
               {' '}
@@ -87,7 +110,20 @@ class Songs extends React.Component {
             ItemSeparatorComponent={() => this.separator()}
             renderItem={({item, index}) => {
               return (
-                <TouchableOpacity style={styles.songContainer}>
+                <TouchableOpacity 
+                style={styles.songContainer}
+                onPress={() => {
+                  this.playSong();
+                  this.props.setStatus(true);
+                  this.props.currentSong({
+                    img: item.img,
+                    title: item.title,
+                    artist: item.artist,
+                    url: item.url,
+                    id: item.id,
+                  });
+                }}
+                >
                   <View style={{flexDirection: 'row'}}>
                     <Image source={item.img} style={styles.img} />
                     <View style={styles.dataContainer}>
@@ -143,4 +179,17 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Songs;
+const mapDispatchToProps = () => {
+  return {
+    setStatus: setStatus,
+    currentSong: currentSong,
+  };
+};
+
+const mapStateToProps = (state) => {
+  return {
+    status: state.status.playing,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps())(Songs);
