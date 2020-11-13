@@ -70,9 +70,9 @@ class Search extends React.Component {
           }}></View>
         <View
           style={{
-            flex: 1,
             backgroundColor: 'green',
             display: this.state.searchValue.length == 0 ? 'flex' : 'none',
+            flex: 1,
           }}>
           <Text style={styles.history}>Lịch sử tìm kiếm</Text>
           <View
@@ -108,10 +108,11 @@ class Search extends React.Component {
         <View
           style={{
             display: this.state.searchValue.length == 0 ? 'none' : 'flex',
+            flex: 1,
           }}>
           <ScrollView
             style={{
-              height: height,
+              // height: height - 70,
             }}>
             <Text
               style={{
@@ -125,7 +126,30 @@ class Search extends React.Component {
               style={{
                 top: 15,
                 width: width,
-                height: height,
+                height: 75,
+                flexDirection: 'row',
+                // backgroundColor: 'gray',
+              }}>
+              <SongResult
+                navigation={this.props.navigation}
+                img={require('../asset/circles2.jpg')}
+                title={'Circles'}
+                artist={'Post Malone'}
+              />
+            </View>
+            <Text
+              style={{
+                fontSize: 22,
+                fontWeight: 'bold',
+                top: 15,
+              }}>
+              Playlist
+            </Text>
+            <View
+              style={{
+                top: 20,
+                width: width,
+                height: 75,
                 flexDirection: 'row',
               }}>
               <SongResult
@@ -135,8 +159,30 @@ class Search extends React.Component {
                 artist={'Post Malone'}
               />
             </View>
-            <View>{this.renderMiniBar()}</View>
+            <Text
+              style={{
+                fontSize: 22,
+                fontWeight: 'bold',
+                top: 20,
+              }}>
+              Playlist
+            </Text>
+            <View
+              style={{
+                top: 25,
+                width: width,
+                height: 100,
+                flexDirection: 'row',
+              }}>
+              <SongResult
+                navigation={this.props.navigation}
+                img={require('../asset/circles2.jpg')}
+                title={'Circles'}
+                artist={'Post Malone'}
+              />
+            </View>
           </ScrollView>
+          <View>{this.renderMiniBar()}</View>
         </View>
         <View>{this.renderMiniBar()}</View>
       </View>
