@@ -7,6 +7,9 @@ import SongResult from '../component/songResult';
 import {connect} from 'react-redux';
 import {setStatus} from '../action/status';
 import {currentSong} from '../action/current';
+import PlaylistResult from '../component/playlistResult';
+import ArtistResult from '../component/artistResult';
+import Genre from '../component/genre';
 
 const {width, height} = Dimensions.get('window');
 
@@ -70,7 +73,6 @@ class Search extends React.Component {
           }}></View>
         <View
           style={{
-            backgroundColor: 'green',
             display: this.state.searchValue.length == 0 ? 'flex' : 'none',
             flex: 1,
           }}>
@@ -82,7 +84,6 @@ class Search extends React.Component {
               flexWrap: 'wrap',
               paddingTop: 10,
               paddingHorizontal: 16,
-              backgroundColor: '#000',
             }}>
             <RTag onTag={this.tag} content="Post Malone"></RTag>
             <RTag onTag={this.tag} content="Circles"></RTag>
@@ -97,12 +98,15 @@ class Search extends React.Component {
               flexWrap: 'wrap',
               paddingTop: 10,
               paddingHorizontal: 16,
-              backgroundColor: '#000',
             }}>
             <RTag onTag={this.tag} content="Post Malone"></RTag>
             <RTag onTag={this.tag} content="Circles"></RTag>
             <RTag onTag={this.tag} content="Sunflower"></RTag>
             <RTag onTag={this.tag} content="Hollywood Bleeding"></RTag>
+          </View>
+          <Text style={styles.recommend}>Chủ đề và thể loại</Text>
+          <View style={{height: height}}>
+            <Genre navigation={this.props.navigation} />
           </View>
         </View>
         <View
@@ -111,9 +115,11 @@ class Search extends React.Component {
             flex: 1,
           }}>
           <ScrollView
-            style={{
-              // height: height - 70,
-            }}>
+            style={
+              {
+                // height: height - 70,
+              }
+            }>
             <Text
               style={{
                 fontSize: 22,
@@ -128,6 +134,7 @@ class Search extends React.Component {
                 width: width,
                 height: 75,
                 flexDirection: 'row',
+                right: -5,
                 // backgroundColor: 'gray',
               }}>
               <SongResult
@@ -151,12 +158,12 @@ class Search extends React.Component {
                 width: width,
                 height: 75,
                 flexDirection: 'row',
+                right: -5,
               }}>
-              <SongResult
+              <PlaylistResult
                 navigation={this.props.navigation}
-                img={require('../asset/circles2.jpg')}
-                title={'Circles'}
-                artist={'Post Malone'}
+                img={require('../asset/hollywood_bleeding.jpg')}
+                name={'Hollywood Bleeding'}
               />
             </View>
             <Text
@@ -165,7 +172,7 @@ class Search extends React.Component {
                 fontWeight: 'bold',
                 top: 20,
               }}>
-              Playlist
+              Nghệ sĩ
             </Text>
             <View
               style={{
@@ -173,11 +180,11 @@ class Search extends React.Component {
                 width: width,
                 height: 100,
                 flexDirection: 'row',
+                right: -5,
               }}>
-              <SongResult
+              <ArtistResult
                 navigation={this.props.navigation}
-                img={require('../asset/circles2.jpg')}
-                title={'Circles'}
+                img={require('../asset/post_malone.jpg')}
                 artist={'Post Malone'}
               />
             </View>

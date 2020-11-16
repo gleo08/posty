@@ -102,3 +102,26 @@ export const playlistData = [
     id: 3,
   },
 ];
+
+export const genreDate = [
+  {
+    name: 'Rap Melody',
+    img: require('../asset/ap.jpg'),
+    id: 1,
+  },
+  {
+    name: 'Rap Melody',
+    img: require('../asset/ap.jpg'),
+    id: 2,
+  },
+  {
+    name: 'Rap Melody',
+    img: require('../asset/ap.jpg'),
+    id: 3,
+  },
+  {
+    name: 'Rap Melody',
+    img: require('../asset/ap.jpg'),
+    id: 4,
+  },
+];

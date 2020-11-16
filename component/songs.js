@@ -135,14 +135,6 @@ class Songs extends React.Component {
               );
             }}
           />
-          <View>
-            <Text>Tue cat moi</Text>
-            <Text>Tue cat moi</Text>
-            <Text>Tue cat moi</Text>
-            <Text>Tue cat moi</Text>
-            <Text>Tue cat moi</Text>
-            <Text>Tue cat moi</Text>
-          </View>
         </ScrollView>
       </View>
     );
