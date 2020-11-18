@@ -23,7 +23,7 @@ function Discover(props) {
   };
 
   search = () => {
-    props.navigation.navigate("Search");
+    props.navigation.navigate('Tabs', {screen: 'Tìm kiếm'});
   }
 
   console.disableYellowBox = true;

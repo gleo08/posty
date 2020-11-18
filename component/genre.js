@@ -1,67 +1,63 @@
 import React from 'react';
-import {StyleSheet, View, Text, Image, TouchableOpacity, Dimensions} from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
-import genreData from '../data/Data';
+import {
+  View,
+  Image,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
+import {genreData} from '../data/Data';
 
-const numColumns = 2;
 const {width, height} = Dimensions.get('window');
+const numColumns = 2;
 
-function Genre(props) {
+class Genre extends React.Component {
+  onGenrePress = () => {
+    this.props.navigation.navigate('Songs');
+  };
 
+  separator = () => {
+    return <View style={{height: 0.5, backgroundColor: '#fff'}} />;
+  }
 
-    formatData = (genreData, numColumns) => {
-        const totalRows = Math.floor(genreData.length / numColumns)
-        let totalLastRow = genreData.length - (totalRows * numColumns)
-
-        while (totalLastRow !== 0 && totalLastRow !== numColumns) {
-            genreData.push({name: 'blank', empty: true})
-        }
-    }
-
-    onGenrePress = () => {
-        props.navigation.navigate('Songs');
-    }
-
+  render() {
     return (
-      <View>
-        <FlatList 
-            data={genreData}
-            keyExtractor={(item, index) => index.toString()}
-            numColumns = {numColumns}
-            renderItem={(item, index) => {
-                return (
-                  <TouchableOpacity
-                    onPress={() => {
-                      onGenrePress();
-                    }}>
-                    <View style={{flexDirection: 'column'}}>
-                      <Image source={item.img} style={styles.img} />
-                      <View style={styles.dataContainer}>
-                        <Text style={styles.genreTitle}>{item.name}</Text>
-                      </View>
-                    </View>
-                  </TouchableOpacity>
-                );
-            }}
+      <View style={styles.container}>
+        <FlatList
+          data={genreData}
+          keyExtractor={(item, index) => index.toString()}
+          ItemSeparatorComponent={() => this.separator()}
+          numColumns={numColumns}
+          renderItem={({item, index}) => {
+            return (
+              <TouchableOpacity
+                style={styles.genreContainer}
+                onPress={() => {
+                  this.onGenrePress();
+                }}>
+                <View style={{flexDirection: 'column', alignContent: 'center', alignItems: 'center'}}>
+                  <Image source={item.img} style={styles.img} />
+                </View>
+              </TouchableOpacity>
+            );
+          }}
         />
       </View>
     );
+  }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   img: {
-    height: 65,
-    width: 65,
-    borderRadius: 5,
-  },
-  dataContainer: {
-    paddingLeft: 10,
-    width: width - 70,
-    bottom: -10,
-  },
-  genreTitle: {
-    fontSize: 16,
-    color: '#000',
+    height: 100,
+    width: width / 2.12,
+    borderRadius: 20,
+    flex: 1,
+    margin: 5,
   },
 });
 

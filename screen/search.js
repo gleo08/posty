@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, StyleSheet, Text, Dimensions, TextInput, ScrollView} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Dimensions,
+  TextInput,
+  ScrollView,
+} from 'react-native';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import MiniBar from '../component/minibar';
 import RTag from '../component/recommendTag';
@@ -14,7 +21,6 @@ import Genre from '../component/genre';
 const {width, height} = Dimensions.get('window');
 
 class Search extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -71,7 +77,7 @@ class Search extends React.Component {
             width: width,
             elevation: 5,
           }}></View>
-        <View
+        <ScrollView
           style={{
             display: this.state.searchValue.length == 0 ? 'flex' : 'none',
             flex: 1,
@@ -79,7 +85,7 @@ class Search extends React.Component {
           <Text style={styles.history}>Lịch sử tìm kiếm</Text>
           <View
             style={{
-              bottom: -20,
+              bottom: -15,
               flexDirection: 'row',
               flexWrap: 'wrap',
               paddingTop: 10,
@@ -105,10 +111,16 @@ class Search extends React.Component {
             <RTag onTag={this.tag} content="Hollywood Bleeding"></RTag>
           </View>
           <Text style={styles.recommend}>Chủ đề và thể loại</Text>
-          <View style={{height: height}}>
-            <Genre navigation={this.props.navigation} />
+          <View
+            style={{
+              top: 20,
+              height: 300,
+            }}>
+            <Genre
+              navigation={this.props.navigation}
+            />
           </View>
-        </View>
+        </ScrollView>
         <View
           style={{
             display: this.state.searchValue.length == 0 ? 'none' : 'flex',
