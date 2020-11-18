@@ -10,7 +10,7 @@ const CarouselItem = ({item}) => {
       <Image style={styles.image} source={item.img} />
       <View style={styles.textView}>
         <Text style={styles.itemTitle}> {item.title}</Text>
-        <Text style={styles.itemDescription}>{item.description}</Text>
+        <Text style={styles.itemDescription}>{item.artist}</Text>
       </View>
     </View>
   );
