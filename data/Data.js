@@ -103,6 +103,34 @@ export const playlistData = [
   },
 ];
 
+export const playlistSuggestData = [
+  {
+    name: 'Relax, everything will be fine',
+    img: require('../asset/relax.jpg'),
+    id: 1,
+  },
+  {
+    name: 'Time',
+    img: require('../asset/time.jpg'),
+    id: 2,
+  },
+  {
+    name: 'Good morning, bae',
+    img: require('../asset/bae.jpg'),
+    id: 3,
+  },
+  {
+    name: 'My youth',
+    img: require('../asset/youth.jpg'),
+    id: 4,
+  },
+  {
+    name: 'Moment',
+    img: require('../asset/moment.jpg'),
+    id: 4,
+  },
+];
+
 export const genreData = [
   {
     img: require('../asset/rap.jpg'),

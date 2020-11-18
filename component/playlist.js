@@ -11,6 +11,7 @@ import {
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import {FlatList} from 'react-native-gesture-handler';
 import {playlistData} from '../data/Data';
+import {playlistSuggestData} from '../data/Data';
 import AddModal from './addModal';
 
 const {width} = Dimensions.get('window');
@@ -97,12 +98,12 @@ class Playlist extends Component {
         <Text style={styles.suggestPlaylist}>Playlist gợi ý</Text>
         <FlatList
           style={{padding: 0, paddingTop: 0}}
-          data={playlistData}
+          data={playlistSuggestData}
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={() => this.separator()}
           renderItem={({item, index}) => {
             return (
-              <TouchableOpacity style={styles.songContainer} onPress={() => {}}>
+              <TouchableOpacity style={styles.songContainer} onPress={() => {this.onPlaylistPress();}}>
                 <View style={{flexDirection: 'row'}}>
                   <View style={{}}>
                     <Image source={item.img} style={styles.img} />
