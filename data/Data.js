@@ -139,7 +139,7 @@ export const playlistSuggestData = [
   {
     name: 'Moment',
     img: require('../asset/moment.jpg'),
-    id: 4,
+    id: 5,
   },
 ];
 
@@ -159,5 +159,33 @@ export const genreData = [
   {
     img: require('../asset/indie.jpg'),
     id: 4,
+  },
+];
+
+export const artistsData = [
+  {
+    name: 'Post Malone',
+    img: require('../asset/post_malone.jpg'),
+    id: 1,
+  },
+  {
+    name: 'Justin Bieber',
+    img: require('../asset/jb.jpg'),
+    id: 2,
+  },
+  {
+    name: 'Halsey',
+    img: require('../asset/halsey.jpg'),
+    id: 3,
+  },
+  {
+    name: 'Billie Eilish',
+    img: require('../asset/bl.jpg'),
+    id: 4,
+  },
+  {
+    name: 'Eminem',
+    img: require('../asset/eminem.jpg'),
+    id: 5,
   },
 ];

@@ -85,11 +85,12 @@ class Search extends React.Component {
           <Text style={styles.history}>Lịch sử tìm kiếm</Text>
           <View
             style={{
-              bottom: -15,
+              bottom: -10,
               flexDirection: 'row',
               flexWrap: 'wrap',
               paddingTop: 10,
               paddingHorizontal: 16,
+              left: -10,
             }}>
             <RTag onTag={this.tag} content="Post Malone"></RTag>
             <RTag onTag={this.tag} content="Circles"></RTag>
@@ -104,16 +105,17 @@ class Search extends React.Component {
               flexWrap: 'wrap',
               paddingTop: 10,
               paddingHorizontal: 16,
+              left: -10,
             }}>
             <RTag onTag={this.tag} content="Post Malone"></RTag>
             <RTag onTag={this.tag} content="Circles"></RTag>
             <RTag onTag={this.tag} content="Sunflower"></RTag>
             <RTag onTag={this.tag} content="Hollywood Bleeding"></RTag>
           </View>
-          <Text style={styles.recommend}>Chủ đề và thể loại</Text>
+          <Text style={styles.genre}>Chủ đề và thể loại</Text>
           <View
             style={{
-              top: 20,
+              top: 30,
               height: 300,
             }}>
             <Genre
@@ -262,5 +264,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     top: 20,
   },
-  result: {},
+  genre: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    top: 30,
+  },
 });

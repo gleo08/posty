@@ -14,6 +14,8 @@ import Icon2 from 'react-native-vector-icons/Ionicons';
 import Trending from '../component/trending';
 import MiniBar from '../component/minibar';
 import {useSelector} from 'react-redux';
+import WouldLike from '../component/wouldLike';
+import Artists from '../component/artists';
 
 function Discover(props) {
   const showing = useSelector((state) => state.showing.showing);
@@ -43,7 +45,9 @@ function Discover(props) {
       <ScrollView>
         <Carousel navigation={props.navigation} data={dummyData} />
         <Suggestion navigation={props.navigation} />
+        <WouldLike navigation={props.navigation} />
         <Trending navigation={props.navigation} />
+        <Artists navigation={props.navigation} />
         <Text></Text>
         <Text></Text>
         <Text></Text>

@@ -62,8 +62,8 @@ function Suggestion (props) {
 const styles = StyleSheet.create({
   container: {
     width: width,
-    height: 250,
-    padding: 15,
+    height: 220,
+    padding: 10,
   },
   title: {
     fontWeight: 'bold',

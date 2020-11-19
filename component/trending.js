@@ -10,6 +10,7 @@ import {
 import { FlatList} from 'react-native-gesture-handler';
 import { useDispatch } from 'react-redux';
 import { setStatus } from '../action/status';
+import { currentSong } from '../action/current';
 import { suggestData } from '../data/Data';
 import TrackPlayer from 'react-native-track-player';
 
@@ -30,7 +31,7 @@ function Trending (props) {
         return (
           <View style={styles.container}>
             <Text style={styles.title}>Top thịnh hành</Text>
-                <FlatList style={{padding: 10, paddingTop: 0}}
+                <FlatList style={{padding: 10, paddingTop: 0, left: 5}}
                     data = {suggestData}
                     showsVerticalScrollIndicator={false}
                     ItemSeparatorComponent = {() => this.separator()}
@@ -71,6 +72,7 @@ function Trending (props) {
 const styles = StyleSheet.create({
   container: {
     width: width,
+    left: -5,
   },
   title: {
     fontWeight: 'bold',
