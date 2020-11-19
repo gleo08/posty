@@ -258,15 +258,18 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     top: 10,
+    padding: 7,
   },
   recommend: {
     fontSize: 22,
     fontWeight: 'bold',
     top: 20,
+    padding: 7,
   },
   genre: {
     fontSize: 22,
     fontWeight: 'bold',
     top: 30,
+    padding: 7,
   },
 });
