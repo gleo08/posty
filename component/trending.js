@@ -7,7 +7,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import { FlatList} from 'react-native-gesture-handler';
+import { FlatList } from 'react-native-gesture-handler';
 import { useDispatch } from 'react-redux';
 import { setStatus } from '../action/status';
 import { currentSong } from '../action/current';
